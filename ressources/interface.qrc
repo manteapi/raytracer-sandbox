@@ -1,0 +1,6 @@
+<RCC>
+    <qresource>
+        <file>../qml/main.qml</file>
+        <file>../qml/components/ViewerContainer.qml</file>
+    </qresource>
+</RCC>
