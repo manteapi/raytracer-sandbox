@@ -1,9 +1,14 @@
 #raytracer-sandbox
 
-A c++ raytracer sandbox.
+A c++ raytracer sandbox based on [Turner Whitted paper](http://dl.acm.org/citation.cfm?id=358882) and [ScratchAPixel](https://www.scratchapixel.com/) tutorials.
 
-Currently it works fine for a sphere and plane.
-Triangle meshes are on the way but the current chunk of code about them is incorrect.
+##Warning
+This is a dummy raytracing implementation for learning purposes.
+Currently it works fine for a sphere, plane, triangle meshes.
+However it is very slow as no acceleration structures has been implemented yet.
+
+##References
+
 
 ##Required Libraries
 Qt5.8 is required. I use it to display the result at the end of the program.
