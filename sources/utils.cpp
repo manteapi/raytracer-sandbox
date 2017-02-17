@@ -113,7 +113,7 @@ void barycentric(const QVector3D &p, const QVector3D &a, const QVector3D &b, con
     u = 1.0f - v - w;
 }
 
-bool triangleRayIntersection(const QVector3D & t1, const QVector3D & t2, const QVector3D & t3, const Ray & r, QVector3D &hitPosition, QVector3D &hitNormal)
+bool triangleRayIntersection(const QVector3D & t1, const QVector3D & t2, const QVector3D & t3, const Ray & r, QVector3D &hitPosition, QVector3D &hitNormal, QVector3D &barycentricCoords)
 {
     //Compute the normal of the plane containing the triangle
     QVector3D planeNormal = QVector3D::crossProduct(t2-t1, t3-t1);
@@ -129,6 +129,7 @@ bool triangleRayIntersection(const QVector3D & t1, const QVector3D & t2, const Q
         if(u>=0 && u<=1 && v>=0 && v<=1 && w>=0 && w<=1)
         {
             hitPosition = pHitPosition;
+            barycentricCoords = QVector3D(u,v,w);
             hitNormal = pHitNormal;
             return true;
         }

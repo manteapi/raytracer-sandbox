@@ -15,6 +15,7 @@ public:
     const MaterialPtr& material() const;
 protected:
     MaterialPtr m_material;
+    QMatrix4x4 m_model;
 };
 
 typedef std::shared_ptr<Object> ObjectPtr;

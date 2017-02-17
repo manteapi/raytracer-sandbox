@@ -28,10 +28,15 @@ TMesh::TMesh(const std::string& filename, const MaterialPtr& material)
 
 bool TMesh::Intersect(const Ray& r, QVector3D& hitPosition, QVector3D& hitNormal)
 {
+    QVector3D barycentricCoords;
     for(size_t i=0; i<m_indices.size()/3; i++)
     {
-        if(triangleRayIntersection(m_positions[3*i], m_positions[3*i+1], m_positions[3*i+2], r, hitPosition, hitNormal))
+        if(triangleRayIntersection(m_positions[ m_indices[3*i] ], m_positions[ m_indices[3*i+1] ], m_positions[ m_indices[3*i+2] ], r, hitPosition, hitNormal, barycentricCoords))
+        {
+            hitNormal = barycentricCoords[0]*m_normals[m_indices[3*i]] + barycentricCoords[1]*m_normals[m_indices[3*i+1]] + barycentricCoords[2]*m_normals[m_indices[3*i+2]];
+            hitNormal.normalize();
             return true;
+        }
     }
     return false;
 }

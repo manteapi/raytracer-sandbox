@@ -99,9 +99,9 @@ void Viewer::compute()
 
     objects.push_back( std::make_shared<Plane>(QVector3D(0.0,1.0,0.0), QVector3D(0.0,-1,0.0), PhongMaterial::Pearl()) );
 
-    /*
     //Warning : This chunk of code does not work properly
-    string meshFilename ="./../meshes/sphereLowRes.obj";
+    /*
+    string meshFilename ="./../meshes/suzanneLowRes.obj";
     objects.push_back( std::make_shared<TMesh>(meshFilename, PhongMaterial::Emerald()) );
     */
     std::cout << "Debug: compute begin" << std::endl;
