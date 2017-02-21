@@ -9,23 +9,38 @@ This is a dummy raytracing implementation for learning purposes.
 Currently it works fine for a sphere, plane, triangle meshes.
 However it is very slow as no acceleration structures has been implemented yet.
 
-##Required Libraries
-Qt5.8 is required. I use it to display the result at the end of the program.
-Currently it is not really useful but I plan to make an extensive use of it in the future.
+##Organization
+The raytracer-sandbox folder produces a library that implements our sandbox raytracer.
+This library is tested in the test folder.
+An example application using a GUI is proposed in the app folder.
 
-##Compilation, Execution and Cleaning
+##How to use it - Compilation, Executation and Cleaning
 
-In the file customCompile.py, replace the -DCMAKE_PREFIX_PATH variable with your path to your Qt5.8 library.
+###Compile raytracer-sandbox library
+    cd raytracer-sandbox
+    mkdir build
+    cmake ..
+    make
 
-To compile, type in a terminal the following command
+###Test the library
+    cd test
     python customCompile.py all
+    make
+    make raytracer-sandbox_test
+    cd ..
+    rm -r build
 
-To execute the program, move to the build directory which has been created during the compilation and execute the raytracer-sandbox executable.
+###Compile, execute and clean an application with a GUI
+
+####Required libraries
+To compile this project requires Qt5.8
+
+####Instructions
+    cd app
+    #In the file customCompile.py, replace the -DCMAKE_PREFIX_PATH variable with your path to your Qt5.8 library.
+    python customCompile.py all
     cd build
-    ./raytracer-sandbox
-
-To clean the build files, go back to the main directory and type the following command
-    python customCopile.py clean
+    ./raytracer-app
 
 ##Results
 

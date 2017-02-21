@@ -3,4 +3,10 @@ language: cpp
 compiler:
     - gcc
     - clang
-script: ./script/run-tests.sh
+before_install:
+    - pip install --user cpp-coveralls
+script: 
+    - ./script/run-tests.sh
+after_install:
+    - coveralls --exclude app --exclude scripts --exclude tests --gcov-options '\-lp'
+
