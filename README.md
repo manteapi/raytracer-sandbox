@@ -44,7 +44,7 @@ To compile this project requires Qt5.8
 
 ##Results
 
-![First result](/results/firstResult.png?raw=true "First result")
+![First result](/app/results/firstResult.png?raw=true "First result")
 
 ##Todo
 
