@@ -46,8 +46,6 @@ To compile this project requires Qt5.8
 
 ![First result](/app/results/firstResult.png?raw=true "First result")
 
-##Todo
-
-1. Use callgrind to compare performance between with/without broadphase collision.
-2. Setup coverage tool.
-3. Implement acceleration structure for triangular meshes.
+##Roadmap
+1. Implement an acceleration structure for triangular meshes.
+2. Implement physically-based materials.
