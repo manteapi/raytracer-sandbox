@@ -30,3 +30,9 @@ To clean the build files, go back to the main directory and type the following c
 ##Results
 
 ![First result](/results/firstResult.png?raw=true "First result")
+
+##Todo
+
+1. Use callgrind to compare performance between with/without broadphase collision.
+2. Setup coverage tool.
+3. Implement acceleration structure for triangular meshes.
