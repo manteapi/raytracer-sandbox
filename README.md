@@ -1,5 +1,7 @@
 #raytracer-sandbox
 
+[![Build Status](https://travis-ci.org/manteapi/raytracer-sandbox.svg?)](https://travis-ci.org/manteapi/raytracer-sandbox)
+
 A c++ raytracer sandbox based on [Turner Whitted paper](http://dl.acm.org/citation.cfm?id=358882) and [ScratchAPixel](https://www.scratchapixel.com/) tutorials.
 
 ##Warning
@@ -27,4 +29,4 @@ To clean the build files, go back to the main directory and type the following c
 
 ##Results
 
-![Alt text](/results/firstResult.png?raw=true "First result")
+![First result](/results/firstResult.png?raw=true "First result")
