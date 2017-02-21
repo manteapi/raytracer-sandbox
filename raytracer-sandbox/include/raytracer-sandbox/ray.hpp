@@ -9,6 +9,7 @@
 
 #include <glm/glm.hpp>
 #include <array>
+#include <iostream>
 
 /**
  * \brief Define a ray which starts from an origin and points to a direction.

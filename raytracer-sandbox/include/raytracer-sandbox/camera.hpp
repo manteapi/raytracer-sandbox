@@ -3,6 +3,7 @@
 
 #include "ray.hpp"
 #include <glm/glm.hpp>
+#include <iostream>
 
 class Camera
 {
