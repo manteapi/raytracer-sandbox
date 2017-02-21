@@ -15,6 +15,7 @@
 #include <QImage>
 #include <qmath.h>
 #include <omp.h>
+#include <chrono>
 
 using namespace std;
 
@@ -88,6 +89,7 @@ void Viewer::compute()
     //Scene's object setup
     std::vector< ObjectPtr > objects;
 
+    /*
     objects.push_back( std::make_shared<Sphere>(QVector3D(0.0,1.0,0.0), 1.0, PhongMaterial::Emerald()) );
 
     GlossyMaterialPtr glossyMaterial = std::make_shared<GlossyMaterial>();
@@ -98,12 +100,11 @@ void Viewer::compute()
     objects.push_back( std::make_shared<Sphere>(QVector3D(3,1.0,0.0), 1.0, fresnelMaterial) );
 
     objects.push_back( std::make_shared<Plane>(QVector3D(0.0,1.0,0.0), QVector3D(0.0,-1,0.0), PhongMaterial::Pearl()) );
+    */
 
     //Warning : This chunk of code does not work properly
-    /*
     string meshFilename ="./../meshes/suzanneLowRes.obj";
     objects.push_back( std::make_shared<TMesh>(meshFilename, PhongMaterial::Emerald()) );
-    */
     std::cout << "Debug: compute begin" << std::endl;
 
     QImage result(width, height, QImage::Format_ARGB32);
@@ -116,7 +117,9 @@ void Viewer::compute()
     pixelOffset.push_back(QVector2D(0.5,0.5));
     int depth = 0;
 
-#pragma omp parallel for
+    auto startTime = std::chrono::high_resolution_clock::now();
+
+//#pragma omp parallel for
     for(int i=0; i<result.width(); ++i)
     {
         for(int j=0; j<result.height(); ++j)
@@ -131,6 +134,10 @@ void Viewer::compute()
             result.setPixelColor(i, j, toColor(pixelColor));
         }
     }
+
+    auto endTime = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> time_ms = endTime - startTime;
+    std::cout << "Time : " << time_ms.count() << " ms" << std::endl;
 
     QString filename = "./../images/computed.png";
     result.save(filename, "PNG", 100);

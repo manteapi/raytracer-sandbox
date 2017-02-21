@@ -3,26 +3,35 @@
 
 bool pathTrace(const Ray& ray, const std::vector<ObjectPtr>& objects, ObjectPtr& closestHitObject, QVector3D& closestHitPosition, QVector3D& closestHitNormal)
 {
-    bool intersect = false;
+    bool narrowIntersection = false;
     closestHitObject = nullptr;
     QVector3D hitPosition, hitNormal;
     float minDistance = std::numeric_limits<float>::max();
     for(const ObjectPtr& o : objects)
     {
-        if( o->Intersect(ray, hitPosition, hitNormal) )
+        //Broad phase
+        std::array<float, 2> tValue = {{0,0}};
+        bool broadIntersection = true;
+        broadIntersection = Intersect(ray, o->bbox(), tValue) && (tValue[0] >= 0 || tValue[1] >=0);
+
+        //Narrow phase
+        if( broadIntersection )
         {
-            intersect = true;
-            float distance = (hitPosition-ray.origin()).length();
-            if(distance < minDistance)
+            if(o->Intersect(ray, hitPosition, hitNormal))
             {
-                closestHitObject = o;
-                closestHitPosition = hitPosition;
-                closestHitNormal = hitNormal.normalized();
-                minDistance = distance;
+                narrowIntersection = true;
+                float distance = (hitPosition-ray.origin()).length();
+                if(distance < minDistance)
+                {
+                    closestHitObject = o;
+                    closestHitPosition = hitPosition;
+                    closestHitNormal = hitNormal.normalized();
+                    minDistance = distance;
+                }
             }
         }
     }
-    return intersect;
+    return narrowIntersection;
 }
 
 QVector3D castRay(const Ray& ray, const std::vector<LightPtr> &lights, const std::vector<ObjectPtr> &objects,

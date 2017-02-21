@@ -2,17 +2,12 @@
 
 Ray::~Ray(){}
 
-Ray::Ray(const Ray& r)
-{
-    m_origin = r.origin();
-    m_direction = r.direction();
-    m_direction.normalize();
-}
-
 Ray::Ray(const QVector3D &origin, const QVector3D& direction)
 {
     m_origin = origin;
     m_direction = direction;
+    m_invDirection = QVector3D(1.0/direction[0], 1.0/direction[1], 1.0/direction[2]);
+    m_sign = {{ m_invDirection[0]<0, m_invDirection[1]<0, m_invDirection[2]<0 }};
     m_direction.normalize();
 }
 
@@ -23,6 +18,10 @@ const QVector3D& Ray::direction() const{ return m_direction; }
 QVector3D& Ray::origin(){ return m_origin; }
 
 const QVector3D& Ray::origin() const{ return m_origin; }
+
+const QVector3D& Ray::invDirection() const{ return m_invDirection; }
+
+const std::array<int,3>& Ray::sign() const{ return m_sign; }
 
 std::ostream& operator << ( std::ostream& out, const Ray& ray)
 {

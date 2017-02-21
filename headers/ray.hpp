@@ -29,7 +29,11 @@ public:
     */
     Ray() = delete;
 
-    Ray(const Ray& r);
+    /** @brief Clone constructor
+     *
+     * Clone constructor.
+    */
+    Ray(const Ray& r) = default;
 
     /** @brief Constructor with ray origin and direction.
      *
@@ -53,6 +57,20 @@ public:
      */
     const QVector3D& direction() const;
 
+    /** @brief Read-only accessor to the inverse of the direction of the ray.
+     *
+     * Allow to read the direction of the ray.
+     * @return A const reference to the direction of the ray.
+     */
+    const QVector3D& invDirection() const;
+
+    /** @brief Read-only accessor to the sign of the direction of the ray.
+     *
+     * Allow to read the direction of the ray.
+     * @return A const reference to the direction of the ray.
+     */
+    const std::array<int,3>& sign() const;
+
     /** @brief Read/write accessor to the origin of the ray.
      *
      * Allow to read and write the origin of the ray.
@@ -69,6 +87,8 @@ public:
 
 private:
     QVector3D m_direction; /*!< The direction of the ray. */
+    QVector3D m_invDirection; /*!< The inverse of the direction of the ray.*/
+    std::array<int,3> m_sign; /*!< The sign of the ray direction.*/
     QVector3D m_origin; /*!< The origin of the ray. */
 };
 
