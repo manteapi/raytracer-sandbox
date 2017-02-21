@@ -8,5 +8,5 @@ before_install:
 script: 
     - ./script/run-tests.sh
 after_install:
-    - coveralls --exclude app --exclude scripts --exclude tests --gcov-options '\-lp'
+    - coveralls --exclude app --exclude scripts --gcov-options '\-lp'
 
