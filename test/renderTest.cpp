@@ -11,7 +11,6 @@
 
 #include <iostream>
 #include <memory>
-#include <omp.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
