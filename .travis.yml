@@ -17,6 +17,16 @@ matrix:
             - gcc-5.4
       env: COMPILER=gcc-5.4
     - compiler: g++
+      addons:
+        apt:
+          sources:
+            - george-edison55-precise-backports
+            - ubuntu-toolchain-r-test
+          packages:
+            - cmake
+            - cmake-data
+            - g++-5.4
+      env: COMPILER=g++-5.4
     - compiler: clang
       addons:
         apt:
