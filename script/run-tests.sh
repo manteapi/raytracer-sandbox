@@ -1,19 +1,20 @@
 #!/bin/sh
 
-#Compile library
+#Release compilation and testing
 cd raytracer-sandbox
-mkdir -p build
-cd build
-cmake ..
+mkdir -p buildRelease
+cd buildRelease
+cmake -DCMAKE_BUILD_TYPE=Release ..
 make
+make test
 
 #Back to root
 cd ../../
 
-#Compile and execute tests
-cd test
-mkdir -p build
-cd build
-cmake -DRAYTRACER_SANDBOX_INCLUDE_DIRS=./../../raytracer-sandbox/include -DRAYTRACER_SANDBOX_LIBRARIES=./../../raytracer-sandbox/build/libRAYTRACER_SANDBOX.a ..
+#Release compilation and testing
+cd raytracer-sandbox
+mkdir -p buildDebug
+cd buildDebug
+cmake -DCMAKE_BUILD_TYPE=Debug ..
 make
-make raytracer-sandbox_test
+make test
