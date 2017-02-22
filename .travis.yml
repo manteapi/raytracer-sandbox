@@ -1,21 +1,9 @@
 #Use new images to yield newer compilers and packages
 sudo: required
-dist: precise
 language: cpp
 
 matrix:
   include:
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - george-edison55-precise-backports
-            - ubuntu-toolchain-r-test
-          packages:
-            - cmake
-            - cmake-data
-            - gcc-4.9
-      env: COMPILER=gcc-4.9
     - compiler: g++
       addons:
         apt:
@@ -33,12 +21,12 @@ matrix:
           sources:
             - george-edison55-precise-backports
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.6
+            - llvm-toolchain-precise-3.7
           packages:
             - cmake
             - cmake-data
-            - clang-3.6
-      env: COMPILER=clang++-3.6
+            - clang-3.7
+      env: COMPILER=clang++-3.7
 
 script:
   - cmake --version
