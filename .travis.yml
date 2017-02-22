@@ -25,10 +25,7 @@ matrix:
                     packages:
                         - clang-3.6
             env: COMPILER=clang++-3.6
-before_install:
-    - pip install --user cpp-coveralls
+
 script: 
     - ./script/run-tests.sh
-after_install:
-    - coveralls --exclude app --exclude scripts --gcov-options '\-lp'
 
