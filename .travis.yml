@@ -2,30 +2,22 @@
 sudo: required
 dist: precise
 language: cpp
+os: linux
+compiler: gcc
+
+#addons:
+    #apt:
+        #sources:
+            ##add PPAs with more up-to-date toolchains
+            #- ubuntu-toolchain-r-test
+        #packages:
+            ## install toolchains
+            #- g++-5
 
 #Sorry no visual studio available in travis...
-matrix:
-    include:
-        - compiler: gcc
-            addons:
-                apt:
-                    sources:
-                        #add PPAs with more up-to-date toolchains
-                        - ubuntu-toolchain-r-test
-                    packages:
-                        # install toolchains
-                        - g++-5
-            env: COMPILER=g++-5
-        - compiler: clang
-            addons:
-                apt:
-                    sources:
-                        - ubuntu-toolchain-r-test
-                        - llvm-toolchain-precise-3.6
-                    packages:
-                        - clang-3.6
-            env: COMPILER=clang++-3.6
-
-script: 
-- ./script/run-tests.sh
+#matrix:
+    #include:
+        #- compiler: gcc
+script:
+    - ./script/run-tests.sh
 
