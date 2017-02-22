@@ -14,8 +14,8 @@ matrix:
           packages:
             - cmake
             - cmake-data
-            - gcc-5.4
-      env: COMPILER=gcc-5.4
+            - gcc-5
+      env: COMPILER=gcc-5
     - compiler: g++
       addons:
         apt:
