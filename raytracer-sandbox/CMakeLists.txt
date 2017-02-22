@@ -28,7 +28,7 @@ if(CMAKE_BUILD_TYPE MATCHES Release)
     MESSAGE( STATUS "BUILD_TYPE=Release")
 endif()
 
-if(CMAKE_BUILD_TYPE MATCHES Debug)
+if(CMAKE_CXX_COMPILER_ID MATCHES GNU AND CMAKE_BUILD_TYPE MATCHES Debug)
     MESSAGE( STATUS "BUILD_TYPE=Debug")
     #Required by gcov
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0")
@@ -110,6 +110,67 @@ add_test(RaytracerSandbox-DefaultTest defaultTest CONFIGURATIONS Debug)
 add_executable(renderTest test/renderTest.cpp)
 target_link_libraries(renderTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
 add_test(RaytracerSandbox-RenderTest renderTest CONFIGURATIONS Debug)
+
+#==============================================
+#Project coverage
+#==============================================
+
+if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
+    find_program(GCOV_EXECUTABLE gcov)
+    find_program(LCOV_EXECUTABLE lcov)
+    find_program(GENHTML_EXECUTABLE genhtml)
+
+    if(NOT GCOV_EXECUTABLE)
+        MESSAGE(FATAL_ERROR "gcov not found! Aborting...")
+    endif() # NOT GCOV_EXECUTABLE
+    if(NOT LCOV_EXECUTABLE)
+        MESSAGE(FATAL_ERROR "lcov not found! Aborting...")
+    endif() # NOT LCOV_EXECUTABLE
+    if(NOT GENHTML_EXECUTABLE)
+        MESSAGE(FATAL_ERROR "genhtml not found! Aborting...")
+    endif() # NOT GENHTML_EXECUTABLE
+
+
+    #Setup target
+    set(COVERAGE_DIR "${CMAKE_BINARY_DIR}/coverage")
+    set(COVERAGE_REPORT_DIR "${COVERAGE_DIR}/report")
+    SET(coverage_base "${COVERAGE_DIR}/raytracer-sandbox_base.info")
+    SET(coverage_test "${COVERAGE_DIR}/raytracer-sandbox_test.info")
+    SET(coverage_merge "${COVERAGE_DIR}/raytracer-sandbox_merge.info")
+    SET(coverage_final "${COVERAGE_DIR}/raytracer-sandbox_final.info")
+    set(RAYTRACER_SANDBOX_OBJECT_DIR "${CMAKE_BINARY_DIR}/CMakeFiles/RAYTRACER_SANDBOX.dir/src/")
+    set(MAKE_TEST make test)
+
+    set(LCOV_REMOVE_EXTRA "/usr/include/*" "/usr/lib/*" "${CMAKE_CURRENT_SOURCE_DIR}/extlib/*" "${CMAKE_CURRENT_SOURCE_DIR}/test/*")
+
+    add_custom_target(coverage-gen
+        # Create a directory for coverage data
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${COVERAGE_DIR}
+
+        # Run initial/baseline lcov
+        COMMAND ${LCOV_EXECUTABLE} --capture --initial --directory ${RAYTRACER_SANDBOX_OBJECT_DIR} --output-file ${coverage_base} 
+
+        # Run tests
+        COMMAND ${MAKE_TEST} 
+
+        # Second run of lcov
+        COMMAND ${LCOV_EXECUTABLE} --capture --directory ${RAYTRACER_SANDBOX_OBJECT_DIR} --output-file ${coverage_test} 
+
+        # Combine lcov tracefiles before and after test
+        COMMAND ${LCOV_EXECUTABLE} --add-tracefile ${coverage_base} --add-tracefile ${coverage_test} --output-file ${coverage_merge} 
+        COMMAND ${LCOV_EXECUTABLE} --output-file ${coverage_final} --remove ${coverage_merge} ${LCOV_REMOVE_EXTRA} > coverageSummary.txt
+
+        # Create a directory for the html report
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${COVERAGE_REPORT_DIR}
+
+        # Generate an html report about the coverage
+        COMMAND ${GENHTML_EXECUTABLE} --prefix ${RAYTRACER_SANDBOX_SOURCE_DIR} --ignore-errors source ${coverage_final} --legend --title "Raytracer-sandbox commit" --output-directory=${COVERAGE_REPORT_DIR}
+
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+        COMMENT "Computing coverage based on the testsDoxygen" VERBATIM
+        )
+endif()
+
 
 #==============================================
 #Doxygen command

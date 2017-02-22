@@ -20,7 +20,7 @@ TEST(Render, Coverage)
 {
     //Camera steup
     float fov=glm::radians(100.0f), nearPlane=1.5, farPlane=100.0;
-    int width=640, height=480;
+    int width=100, height=100;
     Camera camera(fov, width, height, nearPlane, farPlane);
     glm::mat4 cameraView(1.0f), rotation(1.0f), translation(1.0f);
     rotation = glm::rotate(rotation, 0.0f, glm::vec3(1.0,0.0,0.0));
