@@ -27,5 +27,5 @@ matrix:
             env: COMPILER=clang++-3.6
 
 script: 
-    - ./script/run-tests.sh
+- ./script/run-tests.sh
 
