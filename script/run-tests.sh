@@ -15,6 +15,6 @@ cd ../../
 cd raytracer-sandbox
 mkdir -p buildDebug
 cd buildDebug
-cmake -DCMAKE_CXX_COMPILER$COMPILER -DCMAKE_BUILD_TYPE=Debug ..
+cmake -DCMAKE_CXX_COMPILER=$COMPILER -DCMAKE_BUILD_TYPE=Debug ..
 make
 make test
