@@ -3,6 +3,7 @@
 #include <iostream>
 #include <assert.h>
 #include <random>
+#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/norm.hpp>
 
 using namespace std;

@@ -40,7 +40,7 @@ find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIR})
 
 #GLM Libraries
-set(GLM_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/../raytracer-sandbox/extlib/glm-0.9.7.1/" CACHE PATH "glm")
+set(GLM_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/../raytracer-sandbox/extlib/glm-0.9.9.0/" CACHE PATH "glm")
 include_directories(${GLM_INCLUDE_DIRS})
 
 #TINYOBJLOADER Libraries
