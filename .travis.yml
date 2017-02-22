@@ -16,6 +16,7 @@ matrix:
             - cmake-data
             - gcc-5.4
       env: COMPILER=gcc-5.4
+    - compiler: g++
     - compiler: clang
       addons:
         apt:
