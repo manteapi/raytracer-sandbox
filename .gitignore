@@ -1,3 +1,6 @@
+# Temporaty files
+*.swp
+
 # QML cache
 *.qmlc
 
