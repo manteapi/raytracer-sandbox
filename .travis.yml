@@ -14,8 +14,8 @@ matrix:
           packages:
             - cmake
             - cmake-data
-            - gcc-5
-      env: COMPILER=gcc-5
+            - gcc-4.9
+      env: COMPILER=gcc-4.9
     - compiler: g++
       addons:
         apt:
@@ -25,8 +25,8 @@ matrix:
           packages:
             - cmake
             - cmake-data
-            - g++-5
-      env: COMPILER=g++-5
+            - g++-4.9
+      env: COMPILER=g++-4.9
     - compiler: clang
       addons:
         apt:
