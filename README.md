@@ -18,24 +18,26 @@ An example application using a GUI is proposed in the app folder.
 
 ###Compile raytracer-sandbox library
     cd raytracer-sandbox
-    mkdir build
-    cmake ..
+    mkdir buildRelease
+    cd buildRelease
+    cmake -DCMAKE_BUILD_TYPE=Release ..
     make
 
 ###Test the library
-    cd test
-    python customCompile.py all
+    cd raytracer-sandbox
+    mkdir buildDebug
+    cd buildDebug
+    cmake -DCMAKE_BUILD_TYPE=Debug ..
     make
-    make raytracer-sandbox_test
-    cd ..
-    rm -r build
+    make test
 
 ###Compile, execute and clean an application with a GUI
 
 ####Required libraries
-To compile this project requires Qt5.8
+To compile this project requires Qt5.8.
 
 ####Instructions
+First compile the library and then follow these instructions
     cd app
     #In the file customCompile.py, replace the -DCMAKE_PREFIX_PATH variable with your path to your Qt5.8 library.
     python customCompile.py all
