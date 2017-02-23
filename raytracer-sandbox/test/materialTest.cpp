@@ -28,7 +28,7 @@ TEST(FresnelMaterial, Constructor)
     FresnelMaterial defaultMaterial;
     checkType = defaultMaterial.type() == MaterialType::FRESNEL;
     EXPECT_EQ(checkType,true);
-    EXPECT_EQ(defaultMaterial.ior(), 0);
+    EXPECT_EQ(defaultMaterial.ior(), 0.0f);
 
     //Specific constructor
     float pi=3.141592;
