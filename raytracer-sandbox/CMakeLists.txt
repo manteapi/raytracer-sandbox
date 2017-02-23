@@ -158,7 +158,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
 
         # Combine lcov tracefiles before and after test
         COMMAND ${LCOV_EXECUTABLE} --add-tracefile ${coverage_base} --add-tracefile ${coverage_test} --output-file ${coverage_merge} 
-        COMMAND ${LCOV_EXECUTABLE} --output-file ${coverage_final} --remove ${coverage_merge} ${LCOV_REMOVE_EXTRA} > coverageSummary.txt
+        COMMAND ${LCOV_EXECUTABLE} --output-file ${coverage_final} --remove ${coverage_merge} ${LCOV_REMOVE_EXTRA} > ${COVERAGE_DIR}/coverageSummary.txt
 
         # Create a directory for the html report
         COMMAND ${CMAKE_COMMAND} -E make_directory ${COVERAGE_REPORT_DIR}

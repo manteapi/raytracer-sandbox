@@ -1,6 +1,7 @@
 #raytracer-sandbox
 
 [![Build Status](https://travis-ci.org/manteapi/raytracer-sandbox.svg?)](https://travis-ci.org/manteapi/raytracer-sandbox)
+![Coverage status](/.prettify-readme/coverage.png "Coverage status")
 
 A c++ raytracer sandbox based on [Turner Whitted paper](http://dl.acm.org/citation.cfm?id=358882) and [ScratchAPixel](https://www.scratchapixel.com/) tutorials.
 
