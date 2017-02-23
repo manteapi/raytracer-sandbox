@@ -5,30 +5,9 @@
 
 using namespace std;
 
-TEST(GlossyMaterial, Constructor)
-{
-    bool checkType = false;
-
-    //Default constructor
-    GlossyMaterial defaultMaterial;
-    checkType = defaultMaterial.type() == MaterialType::GLOSSY;
-    EXPECT_EQ(checkType,true);
-
-    //Clone constructor
-    GlossyMaterial cloneMaterial(defaultMaterial);
-    checkType = cloneMaterial.type() == MaterialType::GLOSSY;
-    EXPECT_EQ(checkType,true);
-}
-
 TEST(FresnelMaterial, Constructor)
 {
     bool checkType = false;
-
-    //Default constructor
-    FresnelMaterial defaultMaterial;
-    checkType = defaultMaterial.type() == MaterialType::FRESNEL;
-    EXPECT_EQ(checkType,true);
-    EXPECT_EQ(defaultMaterial.ior(), 0.0f);
 
     //Specific constructor
     float pi=3.141592;
@@ -36,12 +15,6 @@ TEST(FresnelMaterial, Constructor)
     checkType = specificMaterial.type() == MaterialType::FRESNEL;
     EXPECT_EQ(checkType,true);
     EXPECT_EQ(specificMaterial.ior(), pi);
-
-    //Clone constructor
-    FresnelMaterial cloneMaterial(specificMaterial);
-    checkType = cloneMaterial.type() == MaterialType::FRESNEL;
-    EXPECT_EQ(checkType,true);
-    EXPECT_EQ(cloneMaterial.ior(), pi);
 }
 
 TEST(FresnelMaterial, GetterSetter)
@@ -70,18 +43,6 @@ TEST(PhongMaterial, Constructor)
 {
     bool checkType = false;
 
-    //Default constructor
-    PhongMaterial defaultMaterial;
-    checkType = defaultMaterial.type() == MaterialType::PHONG;
-    EXPECT_EQ(checkType, true);
-    for(int i=0; i<3; ++i)
-    {
-        EXPECT_EQ(defaultMaterial.ambient()[i], 0);
-        EXPECT_EQ(defaultMaterial.diffuse()[i], 0);
-        EXPECT_EQ(defaultMaterial.specular()[i], 0);
-    }
-    EXPECT_EQ(defaultMaterial.shininess(),0);
-
     //Specific constructor
     float pi=3.141592;
     glm::vec3 ambient(pi,2*pi,3*pi);
@@ -98,18 +59,6 @@ TEST(PhongMaterial, Constructor)
         EXPECT_EQ(specificMaterial.specular()[i], specular[i]);
     }
     EXPECT_EQ(specificMaterial.shininess(), shininess);
-
-    //Clone constructor
-    PhongMaterial cloneMaterial(specificMaterial);
-    checkType = cloneMaterial.type() == MaterialType::PHONG;
-    EXPECT_EQ(checkType, true);
-    for(int i=0; i<3; ++i)
-    {
-        EXPECT_EQ(cloneMaterial.ambient()[i], specificMaterial.ambient()[i]);
-        EXPECT_EQ(cloneMaterial.diffuse()[i], specificMaterial.diffuse()[i]);
-        EXPECT_EQ(cloneMaterial.specular()[i], specificMaterial.specular()[i]);
-    }
-    EXPECT_EQ(cloneMaterial.shininess(), specificMaterial.shininess());
 }
 
 TEST(PhongMaterial, GetterSetter)
