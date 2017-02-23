@@ -115,6 +115,15 @@ add_executable(renderTest test/renderTest.cpp)
 target_link_libraries(renderTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
 add_test(RaytracerSandbox-RenderTest renderTest CONFIGURATIONS Debug)
 
+#Test command with details
+add_custom_target(detailed_test 
+    COMMAND ./defaultTest
+    COMMAND ./materialTest
+    COMMAND ./renderTest
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    COMMENT "Launch Detailed Test" VERBATIM
+)
+
 #==============================================
 #Project coverage
 #==============================================
