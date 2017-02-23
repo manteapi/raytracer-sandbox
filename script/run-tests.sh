@@ -29,7 +29,7 @@ mkdir -p buildRelease
 cd buildRelease
 cmake -DCMAKE_CXX_COMPILER=$COMPILER -DCMAKE_BUILD_TYPE=Release ..
 make
-make detailed-test
+make detailed_test
 
 #Back to root
 cd ../../
@@ -40,4 +40,4 @@ mkdir -p buildDebug
 cd buildDebug
 cmake -DCMAKE_CXX_COMPILER=$COMPILER -DCMAKE_BUILD_TYPE=Debug ..
 make
-make detailed-test
+make detailed_test
