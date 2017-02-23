@@ -11,6 +11,7 @@ class Material
 public:
     virtual ~Material();
     Material() = default;
+    Material(const Material& material) = default;
     virtual MaterialType type() = 0;
 };
 
@@ -21,6 +22,7 @@ class GlossyMaterial : public Material
 public:
     ~GlossyMaterial();
     GlossyMaterial() = default;
+    GlossyMaterial(const GlossyMaterial& material) = default;
     virtual MaterialType type();
 };
 
@@ -67,12 +69,12 @@ public:
     /**
      * @brief Default constructor
      */
-    PhongMaterial();
+    PhongMaterial() = default;
 
     /**
      * @brief Default constructor
      */
-    PhongMaterial(const PhongMaterial& material);
+    PhongMaterial(const PhongMaterial& material) = default;
 
     /**
      * @brief Specific constructor
@@ -167,10 +169,10 @@ public:
     virtual MaterialType type();
 
 private:
+    float m_shininess; /*!< The shininess impacts the scattering/radius of the specular highlight. */
     glm::vec3 m_ambient; /*!< The ambient material vector defines what color this object reflects under ambient lighting. */
     glm::vec3 m_diffuse; /*!< The diffuse material vector defines the color of the object under diffuse lighting. */
     glm::vec3 m_specular; /*!< The specular material vector sets the color impact a specular light has on the object. */
-    float m_shininess; /*!< The shininess impacts the scattering/radius of the specular highlight. */
 };
 
 typedef std::shared_ptr<PhongMaterial> PhongMaterialPtr; /*!< Smart pointer to a material */

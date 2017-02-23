@@ -13,7 +13,7 @@ if [ -z "${COMPILER}" ]; then
     cd buildDebug
     cmake -DCMAKE_BUILD_TYPE=Debug ..
     make
-    make test
+    make coverage-gen
     
     #Back to root
     cd ../../

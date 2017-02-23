@@ -55,28 +55,12 @@ float FresnelMaterial::DiamondIOR()
 PhongMaterial::~PhongMaterial()
 {}
 
-PhongMaterial::PhongMaterial()
-{
-    m_ambient = glm::vec3(0.0,0.0,0.0);
-    m_diffuse = glm::vec3(0.0,0.0,0.0);
-    m_specular = glm::vec3(0.0,0.0,0.0);
-    m_shininess = 0.0;
-}
-
 PhongMaterial::PhongMaterial(const glm::vec3& ambient, const glm::vec3& diffuse, const glm::vec3& specular, const float &shininess)
 {
     m_ambient = ambient;
     m_diffuse = diffuse;
     m_specular = specular;
     m_shininess = shininess;
-}
-
-PhongMaterial::PhongMaterial(const PhongMaterial& material)
-{
-    m_ambient = material.m_ambient;
-    m_diffuse = material.m_diffuse;
-    m_specular = material.m_specular;
-    m_shininess = material.m_shininess;
 }
 
 const glm::vec3& PhongMaterial::ambient() const
