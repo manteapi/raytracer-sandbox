@@ -2,9 +2,11 @@
 #!/usr/bin/python
 
 import os
+import cairosvg
 
 inputFilepath = os.path.abspath("./../raytracer-sandbox/buildDebug/coverage/coverageSummary.txt")
-outputFilepath = os.path.abspath("../.prettify-readme/coverage.svg")
+outputSVGFilepath = os.path.abspath("../.prettify-readme/coverage.svg")
+outputPNGFilepath = os.path.abspath("../.prettify-readme/coverage.png")
 
 #Open our coverage summary file
 inputFile = open(inputFilepath, 'r')
@@ -34,7 +36,7 @@ coverage_number = coverage_percentage.split("%")
 coverage_value = (float)(coverage_number[0])
 
 #Write this percentage in a svg file
-outputFile = open(outputFilepath, 'w')
+outputSVGFile = open(outputSVGFilepath, 'w')
 
 svgCode=""
 svgCode='<svg xmlns="http://www.w3.org/2000/svg" width="90" height="20">'
@@ -58,4 +60,10 @@ svgCode=svgCode+'    <text x="72.5" y="14">'+coverage_percentage+'</text>'
 svgCode=svgCode+'</g>'
 svgCode=svgCode+'</svg>'
 
-outputFile.write(svgCode)
+outputSVGFile.write(svgCode)
+outputSVGFile.close()
+
+#Convert to png file
+outputPNGFile = open(outputPNGFilepath, 'w')
+cairosvg.svg2png(bytestring=svgCode,write_to=outputPNGFile)
+outputSVGFile.close()
