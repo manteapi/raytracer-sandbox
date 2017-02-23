@@ -128,7 +128,7 @@ add_custom_target(detailed_test
 #Project coverage
 #==============================================
 
-if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
+if(CMAKE_CXX_COMPILER_ID MATCHES GNU AND CMAKE_BUILD_TYPE MATCHES Debug)
     find_program(GCOV_EXECUTABLE gcov)
     find_program(LCOV_EXECUTABLE lcov)
     find_program(GENHTML_EXECUTABLE genhtml)
