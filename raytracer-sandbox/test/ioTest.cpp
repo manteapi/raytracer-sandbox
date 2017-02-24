@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 
 #include <raytracer-sandbox/io.hpp>
+#include "config.h"
 
 TEST(IO, read_obj)
 {
@@ -16,7 +17,8 @@ TEST(IO, read_obj)
     success = read_obj(filename, positions, triangles, normals, texcoords);
     EXPECT_EQ(success, false);
 
-    filename = "./../test/meshes/triangle.obj";
+    filename = CurrentBinaryDir()+"/../test/meshes/triangle.obj";
+    std::cout << filename << std::endl;
     success = read_obj(filename, positions, triangles, normals, texcoords);
     EXPECT_EQ(success, true);
     EXPECT_EQ(positions.size(), size_t(3));

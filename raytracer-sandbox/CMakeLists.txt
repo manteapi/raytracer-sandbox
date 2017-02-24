@@ -75,6 +75,12 @@ file(
     )
 
 #==============================================
+#Project config file
+#==============================================
+configure_file(config.h.in ${CMAKE_BINARY_DIR}/generated/config.h)
+include_directories( ${CMAKE_BINARY_DIR}/generated/)
+
+#==============================================
 #Project library
 #==============================================
 add_library(RAYTRACER_SANDBOX
