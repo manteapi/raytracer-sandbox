@@ -46,11 +46,11 @@ if coverage_value<75 :
     svgCode=svgCode+'<rect rx="3" x="55" width="35" height="20" fill="#ef1a1a"/>'
     svgCode=svgCode+'<path fill="#ef1a1a" d="M55 0h4v20h-4z"/>'
 elif coverage_value>=75 and coverage_value<=90 :
-    svgCode=svgCode+'<rect rx="3" x="55" width="35" height="20" fill="#4c1"/>'
-    svgCode=svgCode+'<path fill="#4c1" d="M55 0h4v20h-4z"/>'
-else:
     svgCode=svgCode+'<rect rx="3" x="55" width="35" height="20" fill="#ffb521"/>'
     svgCode=svgCode+'<path fill="#ffb521" d="M55 0h4v20h-4z"/>'
+else:
+    svgCode=svgCode+'<rect rx="3" x="55" width="35" height="20" fill="#4c1"/>'
+    svgCode=svgCode+'<path fill="#4c1" d="M55 0h4v20h-4z"/>'
 svgCode=svgCode+'<rect rx="3" width="90" height="20" fill="url(#a)"/>'
 svgCode=svgCode+'<g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11">'
 svgCode=svgCode+'    <text x="26.5" y="15" fill="#010101" fill-opacity=".3">coverage</text>'
