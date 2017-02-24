@@ -113,6 +113,10 @@ add_executable(defaultTest test/defaultTest.cpp)
 target_link_libraries(defaultTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
 add_test(RaytracerSandbox-DefaultTest defaultTest CONFIGURATIONS Debug)
 
+add_executable(utilsTest test/utilsTest.cpp)
+target_link_libraries(utilsTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
+add_test(RaytracerSandbox-UtilsTest utilsTest CONFIGURATIONS Debug)
+
 add_executable(cameraTest test/cameraTest.cpp)
 target_link_libraries(cameraTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
 add_test(RaytracerSandbox-CameraTest cameraTest CONFIGURATIONS Debug)
@@ -132,6 +136,7 @@ add_test(RaytracerSandbox-RenderTest renderTest CONFIGURATIONS Debug)
 #Test command with details
 add_custom_target(detailed_test 
     COMMAND ./defaultTest
+    COMMAND ./utilsTest
     COMMAND ./cameraTest
     COMMAND ./ioTest
     COMMAND ./materialTest

@@ -111,7 +111,7 @@ TEST(Camera, ComputeRayThroughPixel)
     EXPECT_EQ(r.direction()[2], -1.0);
 }
 
-TEST(Camera, OutputStream)
+TEST(Camera, CameraStream)
 {
     float fov=100.0, width=1280, height=720, near=1, far=100;
     Camera camera(fov, width, height, near, far);

@@ -29,7 +29,7 @@ public:
      *
      * Default constructor.
     */
-    Ray() = delete;
+    Ray() = default;
 
     /** @brief Clone constructor
      *
