@@ -113,6 +113,10 @@ add_executable(defaultTest test/defaultTest.cpp)
 target_link_libraries(defaultTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
 add_test(RaytracerSandbox-DefaultTest defaultTest CONFIGURATIONS Debug)
 
+add_executable(cameraTest test/cameraTest.cpp)
+target_link_libraries(cameraTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
+add_test(RaytracerSandbox-CameraTest cameraTest CONFIGURATIONS Debug)
+
 add_executable(ioTest test/ioTest.cpp)
 target_link_libraries(ioTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
 add_test(RaytracerSandbox-ioTest ioTest CONFIGURATIONS Debug)
@@ -128,6 +132,7 @@ add_test(RaytracerSandbox-RenderTest renderTest CONFIGURATIONS Debug)
 #Test command with details
 add_custom_target(detailed_test 
     COMMAND ./defaultTest
+    COMMAND ./cameraTest
     COMMAND ./ioTest
     COMMAND ./materialTest
     COMMAND ./renderTest
@@ -170,6 +175,9 @@ if(CMAKE_CXX_COMPILER_ID MATCHES GNU AND CMAKE_BUILD_TYPE MATCHES Debug)
     add_custom_target(coverage-gen
         # Create a directory for coverage data
         COMMAND ${CMAKE_COMMAND} -E make_directory ${COVERAGE_DIR}
+
+        # Clear counters
+        COMMAND ${LCOV_EXECUTABLE} --zerocounters --directory ${RAYTRACER_SANDBOX_OBJECT_DIR}
 
         # Run initial/baseline lcov
         COMMAND ${LCOV_EXECUTABLE} --capture --initial --directory ${RAYTRACER_SANDBOX_OBJECT_DIR} --output-file ${coverage_base} 

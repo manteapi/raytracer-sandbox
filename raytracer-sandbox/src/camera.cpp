@@ -23,11 +23,6 @@ Camera::Camera(float fov, int width, int height, float near, float far)
     m_projection = glm::perspective(m_fov, m_ratio, m_znear, m_zfar);
 }
 
-Camera::Camera()
-{
-    m_view=glm::mat4(1.0f);
-}
-
 glm::mat4& Camera::view()
 {
     return m_view;
@@ -38,9 +33,9 @@ const glm::mat4& Camera::view() const
     return m_view;
 }
 
-float& Camera::fov()
+const glm::mat4& Camera::projection() const
 {
-    return m_fov;
+    return m_projection;
 }
 
 const float& Camera::fov() const
@@ -48,19 +43,9 @@ const float& Camera::fov() const
     return m_fov;
 }
 
-float& Camera::ratio()
-{
-    return m_ratio;
-}
-
 const float& Camera::ratio() const
 {
     return m_ratio;
-}
-
-float& Camera::znear()
-{
-    return m_znear;
 }
 
 const float& Camera::znear() const
@@ -68,19 +53,9 @@ const float& Camera::znear() const
     return m_znear;
 }
 
-float& Camera::zfar()
-{
-    return m_zfar;
-}
-
 const float& Camera::zfar() const
 {
     return m_zfar;
-}
-
-int& Camera::width()
-{
-    return m_width;
 }
 
 const int& Camera::width() const
@@ -88,17 +63,12 @@ const int& Camera::width() const
     return m_width;
 }
 
-int& Camera::height()
-{
-    return m_height;
-}
-
 const int& Camera::height() const
 {
     return m_height;
 }
 
-glm::vec3 Camera::getPosition() const
+glm::vec3 Camera::computePosition() const
 {
     glm::mat4 invView = glm::inverse(m_view);
     return glm::vec3(invView[3][0], invView[3][1], invView[3][2]);
@@ -124,7 +94,7 @@ glm::vec3 Camera::pixelToWorld( const float& xCoord, const float& yCoord) const
 
 Ray Camera::computeRayThroughPixel(const float &x, const float &y)
 {
-    glm::vec3 origin = getPosition();
+    glm::vec3 origin = computePosition();
     glm::vec3 pixelWorld = pixelToWorld(x,y);
     glm::vec3 direction = pixelWorld-origin;
     return Ray( origin, glm::normalize(direction) );
@@ -138,7 +108,7 @@ ostream& operator << ( ostream& out, const Camera& camera )
     out << "height : " << camera.height() << endl;
     out << "znear: " << camera.znear() << endl;
     out << "zfar: " << camera.zfar() << endl;
-    glm::vec3 cameraPosition = camera.getPosition();
+    glm::vec3 cameraPosition = camera.computePosition();
     out << "Camera position : " << cameraPosition[0] << ", " << cameraPosition[1] << ", " << cameraPosition[2] << endl;
     glm::vec3 screenPosition = camera.pixelToWorld((int)(camera.width()/2.0f), (int)(camera.height()/2.0f));
     out << "Screen center position : " << screenPosition[0] << ", " << screenPosition[1] << ", " << screenPosition[2] << endl;
