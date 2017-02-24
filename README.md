@@ -1,6 +1,6 @@
 #raytracer-sandbox
 
-[![Build Status](https://travis-ci.org/manteapi/raytracer-sandbox.svg?)](https://travis-ci.org/manteapi/raytracer-sandbox)
+[![Build Status](https://travis-ci.org/manteapi/raytracer-sandbox.svg?branch=master)](https://travis-ci.org/manteapi/raytracer-sandbox)
 
 ![Coverage status](/.prettify-readme/coverage.png?raw=true "Coverage status")
 
