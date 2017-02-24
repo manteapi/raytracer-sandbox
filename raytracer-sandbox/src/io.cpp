@@ -59,12 +59,7 @@ bool read_obj(const string& filename,
         {
             texcoords.push_back( glm::vec2(shapes[i].mesh.texcoords[2*t+0], shapes[i].mesh.texcoords[2*t+1]) );
         }
-        std::cout << "Shape " << i << std::endl;
-        std::cout << "Vertex number : " << positions.size() << std::endl;
-        std::cout << "Normal number : " << normals.size() << std::endl;
-        std::cout << "Indices number : " << triangles.size() << std::endl;
     }
-
 
     return ret;
 }

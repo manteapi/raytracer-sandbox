@@ -107,6 +107,10 @@ add_executable(defaultTest test/defaultTest.cpp)
 target_link_libraries(defaultTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
 add_test(RaytracerSandbox-DefaultTest defaultTest CONFIGURATIONS Debug)
 
+add_executable(ioTest test/ioTest.cpp)
+target_link_libraries(ioTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
+add_test(RaytracerSandbox-ioTest ioTest CONFIGURATIONS Debug)
+
 add_executable(materialTest test/materialTest.cpp)
 target_link_libraries(materialTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
 add_test(RaytracerSandbox-MaterialTest materialTest CONFIGURATIONS Debug)
@@ -118,6 +122,7 @@ add_test(RaytracerSandbox-RenderTest renderTest CONFIGURATIONS Debug)
 #Test command with details
 add_custom_target(detailed_test 
     COMMAND ./defaultTest
+    COMMAND ./ioTest
     COMMAND ./materialTest
     COMMAND ./renderTest
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
