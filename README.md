@@ -53,3 +53,4 @@ First compile the library and then follow these instructions
 ##Roadmap
 1. Implement an acceleration structure for triangular meshes.
 2. Implement physically-based materials.
+3. Perfom a robust library development : units test, coverage, performance
