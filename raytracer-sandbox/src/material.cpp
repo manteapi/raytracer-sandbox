@@ -3,6 +3,11 @@
 
 Material::~Material(){}
 
+MaterialType Material::type()
+{
+    return NONE;
+}
+
 GlossyMaterial::~GlossyMaterial(){}
 
 MaterialType GlossyMaterial::type()

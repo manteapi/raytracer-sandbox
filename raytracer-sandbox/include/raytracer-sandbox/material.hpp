@@ -4,7 +4,7 @@
 #include <memory>
 #include <glm/glm.hpp>
 
-enum MaterialType { GLOSSY, PHONG, FRESNEL };
+enum MaterialType { NONE, GLOSSY, PHONG, FRESNEL };
 
 class Material
 {
@@ -12,7 +12,7 @@ public:
     virtual ~Material();
     Material() = default;
     Material(const Material& material) = default;
-    virtual MaterialType type() = 0;
+    virtual MaterialType type();
 };
 
 typedef std::shared_ptr<Material> MaterialPtr;
