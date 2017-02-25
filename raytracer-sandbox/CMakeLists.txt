@@ -19,7 +19,10 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release")
 endif()
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+# C++14 is required
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra -Wall")
 #Needed by Qt - "You must build your code with position independent code if Qt was built with -reduce-relocations"
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
@@ -66,6 +69,7 @@ file(
     GLOB_RECURSE
     RAYTRACER_SANDBOX_HEADER
     include/raytracer-sandbox/*.hpp
+    include/raytracer-sandbox/*.inl
     )
 
 file(
