@@ -113,6 +113,22 @@ add_executable(defaultTest test/defaultTest.cpp)
 target_link_libraries(defaultTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
 add_test(RaytracerSandbox-DefaultTest defaultTest CONFIGURATIONS Debug)
 
+add_executable(planeTest test/planeTest.cpp)
+target_link_libraries(planeTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
+add_test(RaytracerSandbox-PlaneTest planeTest CONFIGURATIONS Debug)
+
+add_executable(sphereTest test/sphereTest.cpp)
+target_link_libraries(sphereTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
+add_test(RaytracerSandbox-SphereTest sphereTest CONFIGURATIONS Debug)
+
+add_executable(tmeshTest test/tmeshTest.cpp)
+target_link_libraries(tmeshTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
+add_test(RaytracerSandbox-TmeshTest tmeshTest CONFIGURATIONS Debug)
+
+add_executable(boxTest test/boxTest.cpp)
+target_link_libraries(boxTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
+add_test(RaytracerSandbox-BoxTest boxTest CONFIGURATIONS Debug)
+
 add_executable(utilsTest test/utilsTest.cpp)
 target_link_libraries(utilsTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
 add_test(RaytracerSandbox-UtilsTest utilsTest CONFIGURATIONS Debug)

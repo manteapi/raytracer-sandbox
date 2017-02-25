@@ -8,6 +8,9 @@
 #include <raytracer-sandbox/material.hpp>
 #include <raytracer-sandbox/object.hpp>
 #include <raytracer-sandbox/pathtracing.hpp>
+#include <raytracer-sandbox/sphere.hpp>
+#include <raytracer-sandbox/plane.hpp>
+#include <raytracer-sandbox/tmesh.hpp>
 
 #include <iostream>
 #include <memory>
