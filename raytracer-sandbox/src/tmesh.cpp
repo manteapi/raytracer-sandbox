@@ -9,8 +9,8 @@ TMesh::TMesh(const std::string& filename, const MaterialPtr& material)
 
     read_obj(filename, m_positions, m_indices, m_normals, m_texCoords);
 
-    glm::vec3 minBB( -std::numeric_limits<float>::max(), -std::numeric_limits<float>::max(), -std::numeric_limits<float>::max() );
-    glm::vec3 maxBB( std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max() );
+    glm::vec3 minBB( std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max() );
+    glm::vec3 maxBB( -std::numeric_limits<float>::max(), -std::numeric_limits<float>::max(), -std::numeric_limits<float>::max() );
     for(size_t i=0; i<m_positions.size(); ++i)
     {
         for(size_t j=0; j<3; ++j)
@@ -22,7 +22,7 @@ TMesh::TMesh(const std::string& filename, const MaterialPtr& material)
     this->bbox() = Box(minBB, maxBB);
 }
 
-bool TMesh::Intersect(const Ray& r, glm::vec3& hitPosition, glm::vec3& hitNormal)
+bool TMesh::Intersect(const Ray& r, glm::vec3& hitPosition, glm::vec3& hitNormal) const
 {
     glm::vec3 barycentricCoords;
     for(size_t i=0; i<m_indices.size()/3; i++)

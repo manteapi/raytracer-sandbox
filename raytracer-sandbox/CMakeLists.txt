@@ -129,6 +129,10 @@ add_executable(boxTest test/boxTest.cpp)
 target_link_libraries(boxTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
 add_test(RaytracerSandbox-BoxTest boxTest CONFIGURATIONS Debug)
 
+add_executable(rayTest test/rayTest.cpp)
+target_link_libraries(rayTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
+add_test(RaytracerSandbox-RayTest rayTest CONFIGURATIONS Debug)
+
 add_executable(utilsTest test/utilsTest.cpp)
 target_link_libraries(utilsTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
 add_test(RaytracerSandbox-UtilsTest utilsTest CONFIGURATIONS Debug)
@@ -152,6 +156,10 @@ add_test(RaytracerSandbox-RenderTest renderTest CONFIGURATIONS Debug)
 #Test command with details
 add_custom_target(detailed_test 
     COMMAND ./defaultTest
+    COMMAND ./boxTest
+    COMMAND ./tmeshTest
+    COMMAND ./planeTest
+    COMMAND ./rayTest
     COMMAND ./utilsTest
     COMMAND ./cameraTest
     COMMAND ./ioTest

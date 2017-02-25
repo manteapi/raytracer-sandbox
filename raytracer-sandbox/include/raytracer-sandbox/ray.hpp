@@ -45,13 +45,6 @@ public:
      */
     Ray(const glm::vec3& origin, const glm::vec3& direction);
 
-    /** @brief Read/write accessor to the direction of the ray.
-     *
-     * Allow to read and write the direction of the ray.
-     * @return A reference to the direction of the ray.
-     */
-    glm::vec3& direction();
-
     /** @brief Read-only accessor to the direction of the ray.
      *
      * Allow to read the direction of the ray.
@@ -72,13 +65,6 @@ public:
      * @return A const reference to the direction of the ray.
      */
     const std::array<int,3>& sign() const;
-
-    /** @brief Read/write accessor to the origin of the ray.
-     *
-     * Allow to read and write the origin of the ray.
-     * @return A reference to the origin of the ray.
-     */
-    glm::vec3& origin();
 
     /** @brief Read-only accessor to the origin of the ray.
      *

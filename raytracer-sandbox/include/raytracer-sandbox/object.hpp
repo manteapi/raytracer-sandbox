@@ -15,7 +15,7 @@ public:
     Object() = default;
     Object(const Object& object) = default;
     virtual ~Object();
-    virtual bool Intersect(const Ray& r, glm::vec3& hitPosition, glm::vec3& hitNormal) = 0;
+    virtual bool Intersect(const Ray& r, glm::vec3& hitPosition, glm::vec3& hitNormal) const = 0;
     MaterialPtr& material();
     const MaterialPtr& material() const;
     Box& bbox();

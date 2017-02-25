@@ -44,7 +44,7 @@ public:
      * @param hitNormal The normal of the surface at the position of the intersection.
      * @return True if intersection occured and False otherwise.
      */
-    virtual bool Intersect(const Ray& r, glm::vec3& hitPosition, glm::vec3& hitNormal);
+    virtual bool Intersect(const Ray& r, glm::vec3& hitPosition, glm::vec3& hitNormal) const;
 
 private:
     std::vector<unsigned int> m_indices; /*!< The indices of the triangles of the mesh. For instance, the indices of a triangle i are m_indices[3*i+0], m_indices[3*i+1] and m_indices[3*i+2]. */

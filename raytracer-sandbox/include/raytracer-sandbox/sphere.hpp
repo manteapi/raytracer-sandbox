@@ -15,7 +15,7 @@ public:
     const glm::vec3& position() const;
     float& radius();
     const float& radius() const;
-    virtual bool Intersect(const Ray& r, glm::vec3& hitPosition, glm::vec3& hitNormal);
+    virtual bool Intersect(const Ray& r, glm::vec3& hitPosition, glm::vec3& hitNormal) const;
 private:
     float m_radius;
     glm::vec3 m_position;

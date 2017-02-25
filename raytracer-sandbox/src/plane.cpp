@@ -25,7 +25,7 @@ Plane::Plane(const glm::vec3& a, const glm::vec3& b, const glm::vec3& c, const M
     this->bbox() = Box(minBB, maxBB);
 }
 
-glm::vec3 Plane::projectOnPlane(const glm::vec3& p)
+glm::vec3 Plane::projectOnPlane(const glm::vec3& p) const
 {
     glm::vec3 planePoint = m_d*m_n;
     glm::vec3 v = p-planePoint;
@@ -34,7 +34,7 @@ glm::vec3 Plane::projectOnPlane(const glm::vec3& p)
     return projection;
 }
 
-bool Plane::Intersect(const Ray& r, glm::vec3& hitPosition, glm::vec3& hitNormal)
+bool Plane::Intersect(const Ray& r, glm::vec3& hitPosition, glm::vec3& hitNormal) const
 {
     float dotNormalRayDir = glm::dot(r.direction(), m_n);
     if ( abs(dotNormalRayDir) > numeric_limits<float>::epsilon())

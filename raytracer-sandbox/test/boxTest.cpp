@@ -60,17 +60,102 @@ TEST(Box, GetterSetter)
     EXPECT_EQ(box.maxExtent()[2], 2);
 }
 
-//TODO
-/*
 TEST(Box, Intersect)
 {
+    glm::vec3 minBB, maxBB, origin, direction;
     Ray ray;
     Box box;
     std::array<float,2> t;
-    bool success = true;
+    bool success = false;
+
+    //Case 0 : No Intersection
+    minBB = glm::vec3(0,0,0);
+    maxBB = glm::vec3(1,1,1);
+    origin = glm::vec3(-0.5,-0.5,-0.5);
+    direction = glm::vec3(0,0,1);
+    box = Box(minBB, maxBB);
+    ray = Ray(origin, direction);
     success = Intersect(ray, box, t);
+    EXPECT_EQ(success, false);
+
+    //Case 1 : No Intersection
+    minBB = glm::vec3(0,0,0);
+    maxBB = glm::vec3(1,1,1);
+    origin = glm::vec3(-0.5,-0.5,1.5);
+    direction = glm::vec3(0,0,1);
+    box = Box(minBB, maxBB);
+    ray = Ray(origin, direction);
+    success = Intersect(ray, box, t);
+    EXPECT_EQ(success, false);
+
+    //Case 2 : No Intersection
+    minBB = glm::vec3(0,0,0);
+    maxBB = glm::vec3(1,1,1);
+    origin = glm::vec3(-0.5,-0.5,-0.5);
+    direction = glm::vec3(1,0,0);
+    box = Box(minBB, maxBB);
+    ray = Ray(origin, direction);
+    success = Intersect(ray, box, t);
+    EXPECT_EQ(success, false);
+
+    //Case 3 : No Intersection
+    minBB = glm::vec3(0,0,0);
+    maxBB = glm::vec3(1,1,1);
+    origin = glm::vec3(1.5,-0.5,-0.5);
+    direction = glm::vec3(1,0,0);
+    box = Box(minBB, maxBB);
+    ray = Ray(origin, direction);
+    success = Intersect(ray, box, t);
+    EXPECT_EQ(success, false);
+
+    //Case 3 : Intersection along z-axis
+    minBB = glm::vec3(0,0,0);
+    maxBB = glm::vec3(1,1,1);
+    origin = glm::vec3(0.5,0.5,-0.5);
+    direction = glm::vec3(0,0,1);
+    box = Box(minBB, maxBB);
+    ray = Ray(origin, direction);
+    success = Intersect(ray, box, t);
+    EXPECT_EQ(success, true);
+    EXPECT_EQ(t[0], 0.5);
+    EXPECT_EQ(t[1], 1.5);
+
+    //Case 4 : Intersection along -z-axis
+    minBB = glm::vec3(0,0,0);
+    maxBB = glm::vec3(1,1,1);
+    origin = glm::vec3(0.5,0.5,1.5);
+    direction = glm::vec3(0,0,1);
+    box = Box(minBB, maxBB);
+    ray = Ray(origin, direction);
+    success = Intersect(ray, box, t);
+    EXPECT_EQ(success, true);
+    EXPECT_EQ(t[0], -1.5);
+    EXPECT_EQ(t[1], -0.5);
+
+    //Case 5 : Intersection along x-axis
+    minBB = glm::vec3(0,0,0);
+    maxBB = glm::vec3(1,1,1);
+    origin = glm::vec3(-0.5,0.5,0.5);
+    direction = glm::vec3(1,0,0);
+    box = Box(minBB, maxBB);
+    ray = Ray(origin, direction);
+    success = Intersect(ray, box, t);
+    EXPECT_EQ(success, true);
+    EXPECT_EQ(t[0], 0.5);
+    EXPECT_EQ(t[1], 1.5);
+
+    //Case 6 : Intersection along -x-axis
+    minBB = glm::vec3(0,0,0);
+    maxBB = glm::vec3(1,1,1);
+    origin = glm::vec3(1.5,0.5,0.5);
+    direction = glm::vec3(1,0,0);
+    box = Box(minBB, maxBB);
+    ray = Ray(origin, direction);
+    success = Intersect(ray, box, t);
+    EXPECT_EQ(success, true);
+    EXPECT_EQ(t[0], -1.5);
+    EXPECT_EQ(t[1], -0.5);
 }
-*/
 
 int main(int argc, char **argv)
 {

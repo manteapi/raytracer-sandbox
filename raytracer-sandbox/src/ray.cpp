@@ -12,11 +12,7 @@ Ray::Ray(const glm::vec3 &origin, const glm::vec3& direction)
     m_direction = glm::normalize(m_direction);
 }
 
-glm::vec3& Ray::direction(){ return m_direction; }
-
 const glm::vec3& Ray::direction() const{ return m_direction; }
-
-glm::vec3& Ray::origin(){ return m_origin; }
 
 const glm::vec3& Ray::origin() const{ return m_origin; }
 

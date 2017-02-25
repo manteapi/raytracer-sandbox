@@ -22,7 +22,7 @@ float& Sphere::radius(){return m_radius;}
 
 const float& Sphere::radius() const {return m_radius;}
 
-bool Sphere::Intersect(const Ray& r, glm::vec3& hitPosition, glm::vec3& hitNormal)
+bool Sphere::Intersect(const Ray& r, glm::vec3& hitPosition, glm::vec3& hitNormal) const
 {
     float a = glm::length2(r.direction());
     float b = 2.0*glm::dot(r.direction(), r.origin()-this->position());

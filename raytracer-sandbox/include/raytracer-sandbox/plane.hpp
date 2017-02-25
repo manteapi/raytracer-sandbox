@@ -65,9 +65,9 @@ public:
    * @param p The point to project.
    * @return The orthogonal projection of p.
    */
-  glm::vec3 projectOnPlane(const glm::vec3& p);
+  glm::vec3 projectOnPlane(const glm::vec3& p) const;
 
-  virtual bool Intersect(const Ray& r, glm::vec3& hitPosition, glm::vec3& hitNormal);
+  virtual bool Intersect(const Ray& r, glm::vec3& hitPosition, glm::vec3& hitNormal) const;
 
 private:
     glm::vec3 m_n; /*!< Plane normal. Points x on the plane satisfy dot(m_n,x)=m_d */
