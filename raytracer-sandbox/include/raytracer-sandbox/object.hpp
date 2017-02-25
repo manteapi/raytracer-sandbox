@@ -18,7 +18,6 @@ public:
     virtual bool Intersect(const Ray& r, glm::vec3& hitPosition, glm::vec3& hitNormal) const = 0;
     MaterialPtr& material();
     const MaterialPtr& material() const;
-    Box& bbox();
     const Box& bbox() const;
 protected:
     MaterialPtr m_material;

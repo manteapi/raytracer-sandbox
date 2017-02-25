@@ -11,7 +11,7 @@ Plane::Plane(const glm::vec3& normal,
 
     glm::vec3 minBB( -numeric_limits<float>::max(), -numeric_limits<float>::max(), -numeric_limits<float>::max() );
     glm::vec3 maxBB( numeric_limits<float>::max(), numeric_limits<float>::max(), numeric_limits<float>::max() );
-    this->bbox() = Box(minBB, maxBB);
+    this->m_bbox = Box(minBB, maxBB);
 }
 
 Plane::Plane(const glm::vec3& a, const glm::vec3& b, const glm::vec3& c, const MaterialPtr &material)
@@ -22,7 +22,7 @@ Plane::Plane(const glm::vec3& a, const glm::vec3& b, const glm::vec3& c, const M
 
     glm::vec3 minBB( -numeric_limits<float>::max(), -numeric_limits<float>::max(), -numeric_limits<float>::max() );
     glm::vec3 maxBB( numeric_limits<float>::max(), numeric_limits<float>::max(), numeric_limits<float>::max() );
-    this->bbox() = Box(minBB, maxBB);
+    this->m_bbox = Box(minBB, maxBB);
 }
 
 glm::vec3 Plane::projectOnPlane(const glm::vec3& p) const

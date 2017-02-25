@@ -18,11 +18,6 @@ const MaterialPtr &Object::material() const
     return m_material;
 }
 
-Box& Object::bbox()
-{
-    return m_bbox;
-}
-
 const Box& Object::bbox() const
 {
     return m_bbox;

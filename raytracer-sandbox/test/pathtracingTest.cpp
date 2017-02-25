@@ -1,10 +1,16 @@
 #include <iostream>
 #include <gtest/gtest.h>
 
-TEST(Default, Example)
+TEST(Pathtracing, Pathtrace)
 {
-    int a = 0;
-    EXPECT_EQ(a, 0);
+    //TODO
+    EXPECT_EQ(true, true);
+}
+
+TEST(Pathtracing, CastRay)
+{
+    //TODO
+    EXPECT_EQ(true, true);
 }
 
 int main(int argc, char **argv)

@@ -11,14 +11,10 @@ Sphere::Sphere(const glm::vec3& position, const float& radius, const MaterialPtr
     m_material = material;
     glm::vec3 minBB = m_position-glm::vec3(m_radius,m_radius,m_radius);
     glm::vec3 maxBB = m_position+glm::vec3(m_radius,m_radius,m_radius);
-    this->bbox() = Box(minBB, maxBB);
+    this->m_bbox = Box(minBB, maxBB);
 }
 
-glm::vec3& Sphere::position(){return m_position;}
-
 const glm::vec3& Sphere::position() const {return m_position;}
-
-float& Sphere::radius(){return m_radius;}
 
 const float& Sphere::radius() const {return m_radius;}
 
@@ -35,16 +31,12 @@ bool Sphere::Intersect(const Ray& r, glm::vec3& hitPosition, glm::vec3& hitNorma
         float minT = t0;
         if(t0<t1 && t0>0) minT = t0;
         if(t0>t1 && t1>0) minT = t1;
-        if(t0>0 || t1>0)
-        {
-            hitPosition = r.origin() + minT*r.direction();
-            hitNormal = glm::normalize(hitPosition-this->position());
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        //if(t0>0 || t1>0)
+        //{
+        hitPosition = r.origin() + minT*r.direction();
+        hitNormal = glm::normalize(hitPosition-this->position());
+        return true;
+        //}
     }
     else
     {

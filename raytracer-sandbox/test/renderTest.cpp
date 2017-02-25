@@ -4,7 +4,9 @@
 #include <raytracer-sandbox/camera.hpp>
 #include <raytracer-sandbox/ray.hpp>
 #include <raytracer-sandbox/utils.hpp>
-#include <raytracer-sandbox/light.hpp>
+#include <raytracer-sandbox/spotLight.hpp>
+#include <raytracer-sandbox/directionalLight.hpp>
+#include <raytracer-sandbox/pointLight.hpp>
 #include <raytracer-sandbox/material.hpp>
 #include <raytracer-sandbox/object.hpp>
 #include <raytracer-sandbox/pathtracing.hpp>

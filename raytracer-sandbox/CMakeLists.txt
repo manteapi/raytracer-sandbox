@@ -149,21 +149,42 @@ add_executable(materialTest test/materialTest.cpp)
 target_link_libraries(materialTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
 add_test(RaytracerSandbox-MaterialTest materialTest CONFIGURATIONS Debug)
 
+add_executable(pointLightTest test/pointLightTest.cpp)
+target_link_libraries(pointLightTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
+add_test(RaytracerSandbox-PointLightTest pointLightTest CONFIGURATIONS Debug)
+
+add_executable(directionalLightTest test/directionalLightTest.cpp)
+target_link_libraries(directionalLightTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
+add_test(RaytracerSandbox-DirectionalLightTest directionalLightTest CONFIGURATIONS Debug)
+
+add_executable(spotLightTest test/spotLightTest.cpp)
+target_link_libraries(spotLightTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
+add_test(RaytracerSandbox-SpotLightTest spotLightTest CONFIGURATIONS Debug)
+
 add_executable(renderTest test/renderTest.cpp)
 target_link_libraries(renderTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
 add_test(RaytracerSandbox-RenderTest renderTest CONFIGURATIONS Debug)
 
+add_executable(pathtracingTest test/pathtracingTest.cpp)
+target_link_libraries(pathtracingTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
+add_test(RaytracerSandbox-PathtracingTest pathtracingTest CONFIGURATIONS Debug)
+
 #Test command with details
 add_custom_target(detailed_test 
     COMMAND ./defaultTest
+    COMMAND ./pathtracingTest
     COMMAND ./boxTest
     COMMAND ./tmeshTest
     COMMAND ./planeTest
+    COMMAND ./sphereTest
     COMMAND ./rayTest
     COMMAND ./utilsTest
     COMMAND ./cameraTest
     COMMAND ./ioTest
     COMMAND ./materialTest
+    COMMAND ./pointLightTest
+    COMMAND ./spotLightTest
+    COMMAND ./directionalLightTest
     COMMAND ./renderTest
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "Launch Detailed Test" VERBATIM

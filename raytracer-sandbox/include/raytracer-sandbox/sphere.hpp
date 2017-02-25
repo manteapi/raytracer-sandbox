@@ -8,12 +8,10 @@ class Sphere : public Object
 {
 public:
     ~Sphere();
-    Sphere(const glm::vec3& position, const float& radius, const MaterialPtr& material);
     Sphere() = default;
     Sphere(const Sphere& s) = default;
-    glm::vec3& position();
+    Sphere(const glm::vec3& position, const float& radius, const MaterialPtr& material);
     const glm::vec3& position() const;
-    float& radius();
     const float& radius() const;
     virtual bool Intersect(const Ray& r, glm::vec3& hitPosition, glm::vec3& hitNormal) const;
 private:

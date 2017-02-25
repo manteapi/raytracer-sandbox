@@ -19,7 +19,7 @@ TMesh::TMesh(const std::string& filename, const MaterialPtr& material)
             maxBB[j] = m_positions[i][j]>maxBB[j] ? m_positions[i][j] : maxBB[j];
         }
     }
-    this->bbox() = Box(minBB, maxBB);
+    this->m_bbox = Box(minBB, maxBB);
 }
 
 bool TMesh::Intersect(const Ray& r, glm::vec3& hitPosition, glm::vec3& hitNormal) const
