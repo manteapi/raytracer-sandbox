@@ -35,7 +35,7 @@ private:
     std::array<OctreeNodePtr, 8> m_children;
     bool m_isLeaf;
     std::vector<ObjectPtr> m_dataObject;
-    Extent m_dataExtent;
+    //Extent m_dataExtent;
 
 };
 

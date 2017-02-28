@@ -5,7 +5,7 @@ OctreeNode::~OctreeNode(){}
 OctreeNode::OctreeNode()
 {
     m_dataObject.clear();
-    m_dataExtent = Extent();
+    //m_dataExtent = Extent();
     m_children.fill(nullptr);
     m_isLeaf = true;
 }
@@ -32,10 +32,9 @@ const bool& OctreeNode::isLeaf() const
 
 Octree::~Octree(){}
 
-Octree::Octree(const Extent &extent)
+Octree::Octree(const Extent &extent) : m_extent(extent)
 {
     m_depth = 0;
-    m_extent = extent;
     m_root = std::make_shared<OctreeNode>();
 }
 
@@ -70,7 +69,7 @@ void Octree::insert(const ObjectPtr& o, OctreeNodePtr& node, std::array<glm::vec
         int cellIndex = 0;
         OctreeNodePtr& child = node->children()[cellIndex];
         glm::vec3 nodeCentroid = 0.5f*(nodeBB[0]+nodeBB[1]);
-        glm::vec3 oCentroid = 0.5f*(o->bbox().minExtent() + o->bbox().maxExtent());
+        glm::vec3 oCentroid = 0.5f*(o->bbox().minBound() + o->bbox().maxBound());
         if(oCentroid[2]>nodeCentroid[2]) cellIndex += 4;
         if(oCentroid[1]>nodeCentroid[1]) cellIndex += 2;
         if(oCentroid[0]>nodeCentroid[0]) cellIndex += 1;

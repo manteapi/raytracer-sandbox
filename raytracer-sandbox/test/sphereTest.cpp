@@ -18,12 +18,12 @@ TEST(Sphere, Constructor)
     EXPECT_EQ(sphere.position()[2], position[2]);
 
     //Object's properties : bounding box and material
-    EXPECT_EQ(sphere.bbox().minExtent()[0], -1);
-    EXPECT_EQ(sphere.bbox().minExtent()[1], -1);
-    EXPECT_EQ(sphere.bbox().minExtent()[2], -1);
-    EXPECT_EQ(sphere.bbox().maxExtent()[0], 1);
-    EXPECT_EQ(sphere.bbox().maxExtent()[1], 1);
-    EXPECT_EQ(sphere.bbox().maxExtent()[2], 1);
+    EXPECT_EQ(sphere.bbox().minBound()[0], -1);
+    EXPECT_EQ(sphere.bbox().minBound()[1], -1);
+    EXPECT_EQ(sphere.bbox().minBound()[2], -1);
+    EXPECT_EQ(sphere.bbox().maxBound()[0], 1);
+    EXPECT_EQ(sphere.bbox().maxBound()[1], 1);
+    EXPECT_EQ(sphere.bbox().maxBound()[2], 1);
 
     MaterialPtr sphereMaterial = sphere.material();
     EXPECT_EQ(sphereMaterial->type(), MaterialType::PHONG);

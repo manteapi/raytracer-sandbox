@@ -13,12 +13,12 @@ TEST(TMesh, Constructor)
     TMesh mesh(filename, material);
 
     Box meshBox = mesh.bbox();
-    EXPECT_EQ(meshBox.minExtent()[0], -0.5);
-    EXPECT_EQ(meshBox.minExtent()[1], -0.5);
-    EXPECT_EQ(meshBox.minExtent()[2], 0);
-    EXPECT_EQ(meshBox.maxExtent()[0], 0.5);
-    EXPECT_EQ(meshBox.maxExtent()[1], 0.5);
-    EXPECT_EQ(meshBox.maxExtent()[2], 0);
+    EXPECT_EQ(meshBox.minBound()[0], -0.5);
+    EXPECT_EQ(meshBox.minBound()[1], -0.5);
+    EXPECT_EQ(meshBox.minBound()[2], 0);
+    EXPECT_EQ(meshBox.maxBound()[0], 0.5);
+    EXPECT_EQ(meshBox.maxBound()[1], 0.5);
+    EXPECT_EQ(meshBox.maxBound()[2], 0);
 
     MaterialPtr meshMaterial = mesh.material();
     EXPECT_EQ(meshMaterial->type(), MaterialType::PHONG);
