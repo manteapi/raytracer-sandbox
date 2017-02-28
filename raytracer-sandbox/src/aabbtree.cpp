@@ -1,4 +1,4 @@
-#include "./../include/raytracer-sandbox/tree.inl"
+#include "./../include/raytracer-sandbox/aabbtree.hpp"
 
 using namespace std;
 
