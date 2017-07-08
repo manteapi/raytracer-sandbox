@@ -11,11 +11,13 @@ using namespace std;
 int main(int argc, char **argv)
 {
     QGuiApplication app(argc, argv);
-    QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
 
     qmlRegisterType<Viewer>("RTApplicationComponents", 1, 0, "Viewer");
 
-    QQmlApplicationEngine engine(QUrl("../qml/main.qml"));
+    QQuickView view;
+    view.setResizeMode(QQuickView::SizeRootObjectToView);
+    view.setSource(QUrl("qrc:///qml/main.qml"));
+    view.show();
 
     return app.exec();
 }

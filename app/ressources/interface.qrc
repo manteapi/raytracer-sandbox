@@ -1,6 +1,15 @@
 <RCC>
-    <qresource>
-        <file>../qml/main.qml</file>
-        <file>../qml/components/ViewerContainer.qml</file>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/components/ViewerContainer.qml</file>
+        <file>glsl/defaultVertexShader.glsl</file>
+        <file>glsl/defaultFragmentShader.glsl</file>
+        <file>glsl/bgVertexShader.glsl</file>
+        <file>glsl/bgFragmentShader.glsl</file>
+    </qresource>
+    <qresource prefix="/graphical-assets">
+        <file alias="default">graphical-assets/default.png</file>
+        <file alias="computing">graphical-assets/computing.png</file>
+        <file alias="paper_background">graphical-assets/paper_background.jpg</file>
     </qresource>
 </RCC>

@@ -20,40 +20,45 @@
  * ( x, y,-z) = 6
  * ( x, y, z) = 7
  */
+template<typename TData>
 class OctreeNode
 {
 public:
-    typedef std::shared_ptr<OctreeNode> OctreeNodePtr;
+    typedef std::shared_ptr< OctreeNode<TData> > OctreeNodePtr;
     ~OctreeNode();
     OctreeNode();
     OctreeNode( const OctreeNode& node ) = default;
     const bool& isLeaf() const;
     bool& isLeaf();
-    std::vector<ObjectPtr>& dataObject();
+    std::vector<TData>& dataObject();
     std::array<OctreeNodePtr,8>& children();
 private:
     std::array<OctreeNodePtr, 8> m_children;
     bool m_isLeaf;
-    std::vector<ObjectPtr> m_dataObject;
+    std::vector<TData> m_dataObject;
 };
 
-typedef std::shared_ptr<OctreeNode> OctreeNodePtr;
 
+template<typename TData>
 class Octree
 {
 public:
+    typedef std::shared_ptr< OctreeNode<TData> > OctreeNodePtr;
+public:
     ~Octree();
-    Octree(const Extent& extent, const int& depth);
+    Octree(const Extent& extent, const int& maxDepth);
     Octree(const Octree& octree) = default;
-    void insert(const ObjectPtr& o);
-    const int& depth();
+    const int& maxDepth();
     const Extent& extent();
     const OctreeNodePtr& root();
+    void insert(const std::pair<TData, glm::vec3>& o);
+    int computeDepth();
 private:
     OctreeNodePtr m_root;
     Extent m_extent;
-    int m_depth;
-    void insert(const ObjectPtr& o, OctreeNodePtr& node, std::array<glm::vec3,2> nodeBB, int depth);
+    int m_maxDepth;
+    void insert(const std::pair<TData, glm::vec3>& o, OctreeNodePtr& node, std::array<glm::vec3,2> nodeBB, int depth);
+    void computeDepth(const OctreeNodePtr& node, int& depth);
 };
 
 #endif // OCTREE_HPP

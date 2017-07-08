@@ -12,4 +12,4 @@ if len(sys.argv)==2:
     elif sys.argv[1]=="clean":
         os.system("rm -r build/")
 else :
-    print("python compile.py all : compile all \n python compile.py clean : clean all")
+    print("How to compile : \n \t python "+__file__+" all \n How to clean ? \n \t python "+__file__+" clean")
