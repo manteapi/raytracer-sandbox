@@ -52,9 +52,12 @@ An example application using a GUI is proposed in the app folder.
 To compile this project requires Qt5.8.
 
 #### Instructions
-First compile the library and then follow these instructions
+First compile the library and then follow these instructions:
+
     cd app
-    #In the file customCompile.py, replace the -DCMAKE_PREFIX_PATH variable with your path to your Qt5.8 library.
+
+In the file customCompile.py, replace the -DCMAKE_PREFIX_PATH variable with your path to your Qt5.8 library.
+
     python customCompile.py all
     cd build
     ./raytracer-app
