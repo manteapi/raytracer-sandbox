@@ -33,6 +33,19 @@ An example application using a GUI is proposed in the app folder.
     make
     make test
 
+### Generate a coverage report of the tests
+    cd raytracer-sandbox
+    mkdir buildDebug
+    cd buildDebug
+    cmake -DCMAKE_BUILD_TYPE=Debug ..
+    make
+    make coverage-gen
+
+### Generate a coverage status png image from the coverage report
+    cd script
+    python gencoveragepng.py
+    #Images are in the folder .prettify-readme
+
 ### Compile, execute and clean an application with a GUI
 
 #### Required libraries
