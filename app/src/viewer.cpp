@@ -4,9 +4,12 @@
 #include <raytracer-sandbox/camera.hpp>
 #include <raytracer-sandbox/ray.hpp>
 #include <raytracer-sandbox/utils.hpp>
-#include <raytracer-sandbox/light.hpp>
+#include <raytracer-sandbox/directionalLight.hpp>
+#include <raytracer-sandbox/pointLight.hpp>
+#include <raytracer-sandbox/spotLight.hpp>
 #include <raytracer-sandbox/material.hpp>
-#include <raytracer-sandbox/object.hpp>
+#include <raytracer-sandbox/sphere.hpp>
+#include <raytracer-sandbox/plane.hpp>
 #include <raytracer-sandbox/pathtracing.hpp>
 
 #include <iostream>
@@ -18,6 +21,12 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <QColor>
+
+#include <QtQuick/qquickwindow.h>
+#include <QtGui/QOpenGLShaderProgram>
+#include <QtGui/QOpenGLContext>
+
+#include <QStandardPaths>
 
 using namespace std;
 
@@ -31,13 +40,60 @@ Viewer::~Viewer()
 
 }
 
-Viewer::Viewer()
+Viewer::Viewer() : m_renderer(0), m_timerId(0)
 {
+    connect(this, &QQuickItem::windowChanged, this, &Viewer::handleWindowChanged);
 }
 
-QQuickFramebufferObject::Renderer* Viewer::createRenderer() const
+void Viewer::handleWindowChanged(QQuickWindow *win)
 {
-    return new FBORenderer();
+    if(m_timerId==0)
+    {
+        this->killTimer(m_timerId);
+        m_timerId = 0;
+    }
+
+    if (win)
+    {
+        connect(win, &QQuickWindow::beforeSynchronizing, this, &Viewer::sync, Qt::DirectConnection);
+        connect(win, &QQuickWindow::sceneGraphInvalidated, this, &Viewer::cleanup, Qt::DirectConnection);
+        // If we allow QML to do the clearing, they would clear what we paint
+        // and nothing would show.
+        win->setClearBeforeRendering(false);
+        m_timerId = startTimer(16, Qt::PreciseTimer);
+    }
+}
+
+void Viewer::cleanup()
+{
+    if (m_renderer)
+    {
+        delete m_renderer;
+        m_renderer = 0;
+    }
+}
+
+void Viewer::sync()
+{
+    if (!m_renderer)
+    {
+        m_renderer = new FBORenderer();
+        connect(window(), &QQuickWindow::beforeRendering, m_renderer, &FBORenderer::paint, Qt::DirectConnection);
+    }
+    m_renderer->setViewportSize(window()->size() * window()->devicePixelRatio());
+    m_renderer->setWindow(window());
+}
+
+
+void Viewer::timerEvent(QTimerEvent* /*event*/)
+{
+    if(m_renderer == nullptr)
+        return;
+
+    if(window())
+    {
+        window()->update();
+    }
 }
 
 void Viewer::compute()
@@ -111,7 +167,6 @@ void Viewer::compute()
     string meshFilename ="./../meshes/suzanneLowRes.obj";
     objects.push_back( std::make_shared<TMesh>(meshFilename, PhongMaterial::Emerald()) );
     */
-    std::cout << "Debug: compute begin" << std::endl;
 
     QImage result(width, height, QImage::Format_ARGB32);
     result.fill( Qt::GlobalColor::black);
@@ -143,9 +198,32 @@ void Viewer::compute()
 
     auto endTime = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> time_ms = endTime - startTime;
-    std::cout << "Time : " << time_ms.count() << " ms" << std::endl;
+    std::cout << "Computation time : " << time_ms.count() << " ms" << std::endl;
 
-    QString filename = "./../images/computed.png";
-    result.save(filename, "PNG", 100);
-    std::cout << "Debug: compute end" << std::endl;
+    //Update display
+    m_renderer->setBackgroundImage(result);
+}
+
+bool Viewer::save()
+{
+    QImage img = m_renderer->getBackgroundImage();
+    QTransform verticalFlip;
+    verticalFlip.rotate(180, Qt::Axis::XAxis);
+    img = img.transformed(verticalFlip);
+    QString path = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
+    QString filepath = path + "/rtSandboxResult.png";
+    return img.save(filepath, "PNG", 100);
+}
+
+void Viewer::setBackgroundImage(const QString& pathToImage)
+{
+    QImage image;
+    if(image.load(pathToImage))
+    {
+        m_renderer->setBackgroundImage(image);
+    }
+    else
+    {
+        qInfo() << "Viewer::setBackgroundImage: invalid path " << pathToImage;
+    }
 }

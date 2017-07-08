@@ -67,8 +67,8 @@ file(
 file(
     GLOB
     QML_FILES
-    qml/*.qml
-    qml/components/*.qml
+    ressources/qml/*.qml
+    ressources/qml/components/*.qml
     )
 
 
