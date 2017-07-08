@@ -14,10 +14,10 @@ public:
     Box(const glm::vec3& minBounds, const glm::vec3& maxBounds);
     std::array< glm::vec3, 2 >& bounds();
     const std::array< glm::vec3, 2 >& bounds() const;
-    glm::vec3& maxExtent();
-    const glm::vec3& maxExtent() const;
-    glm::vec3& minExtent();
-    const glm::vec3& minExtent() const;
+    glm::vec3& maxBound();
+    const glm::vec3& maxBound() const;
+    glm::vec3& minBound();
+    const glm::vec3& minBound() const;
 private:
     std::array< glm::vec3, 2 > m_bounds;
 };

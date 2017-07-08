@@ -12,12 +12,12 @@ TEST(Plane, Constructor_Normal)
 
     //Check object's properties : bbox, material
     Box planeBox = plane.bbox();
-    EXPECT_EQ(planeBox.minExtent()[0], -std::numeric_limits<float>::max());
-    EXPECT_EQ(planeBox.minExtent()[1], -std::numeric_limits<float>::max());
-    EXPECT_EQ(planeBox.minExtent()[2], -std::numeric_limits<float>::max());
-    EXPECT_EQ(planeBox.maxExtent()[0], std::numeric_limits<float>::max());
-    EXPECT_EQ(planeBox.maxExtent()[1], std::numeric_limits<float>::max());
-    EXPECT_EQ(planeBox.maxExtent()[2], std::numeric_limits<float>::max());
+    EXPECT_EQ(planeBox.minBound()[0], -std::numeric_limits<float>::max());
+    EXPECT_EQ(planeBox.minBound()[1], -std::numeric_limits<float>::max());
+    EXPECT_EQ(planeBox.minBound()[2], -std::numeric_limits<float>::max());
+    EXPECT_EQ(planeBox.maxBound()[0], std::numeric_limits<float>::max());
+    EXPECT_EQ(planeBox.maxBound()[1], std::numeric_limits<float>::max());
+    EXPECT_EQ(planeBox.maxBound()[2], std::numeric_limits<float>::max());
 
     MaterialPtr planeMaterial = plane.material();
     EXPECT_EQ(planeMaterial->type(), MaterialType::PHONG);
@@ -46,12 +46,12 @@ TEST(Plane, Constructor_Points)
 
     //Check object's properties : bbox, material
     Box planeBox = plane.bbox();
-    EXPECT_EQ(planeBox.minExtent()[0], -std::numeric_limits<float>::max());
-    EXPECT_EQ(planeBox.minExtent()[1], -std::numeric_limits<float>::max());
-    EXPECT_EQ(planeBox.minExtent()[2], -std::numeric_limits<float>::max());
-    EXPECT_EQ(planeBox.maxExtent()[0], std::numeric_limits<float>::max());
-    EXPECT_EQ(planeBox.maxExtent()[1], std::numeric_limits<float>::max());
-    EXPECT_EQ(planeBox.maxExtent()[2], std::numeric_limits<float>::max());
+    EXPECT_EQ(planeBox.minBound()[0], -std::numeric_limits<float>::max());
+    EXPECT_EQ(planeBox.minBound()[1], -std::numeric_limits<float>::max());
+    EXPECT_EQ(planeBox.minBound()[2], -std::numeric_limits<float>::max());
+    EXPECT_EQ(planeBox.maxBound()[0], std::numeric_limits<float>::max());
+    EXPECT_EQ(planeBox.maxBound()[1], std::numeric_limits<float>::max());
+    EXPECT_EQ(planeBox.maxBound()[2], std::numeric_limits<float>::max());
 
     MaterialPtr planeMaterial = plane.material();
     EXPECT_EQ(planeMaterial->type(), MaterialType::PHONG);

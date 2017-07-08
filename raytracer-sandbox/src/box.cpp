@@ -16,22 +16,22 @@ const std::array< glm::vec3, 2 >& Box::bounds() const
     return m_bounds;
 }
 
-glm::vec3& Box::maxExtent()
+glm::vec3& Box::maxBound()
 {
     return m_bounds[1];
 }
 
-const glm::vec3& Box::maxExtent() const
+const glm::vec3& Box::maxBound() const
 {
     return m_bounds[1];
 }
 
-glm::vec3& Box::minExtent()
+glm::vec3& Box::minBound()
 {
     return m_bounds[0];
 }
 
-const glm::vec3& Box::minExtent() const
+const glm::vec3& Box::minBound() const
 {
     return m_bounds[0];
 }

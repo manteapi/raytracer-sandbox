@@ -19,7 +19,10 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release")
 endif()
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+# C++14 is required
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra -Wall")
 #Needed by Qt - "You must build your code with position independent code if Qt was built with -reduce-relocations"
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
@@ -66,6 +69,7 @@ file(
     GLOB_RECURSE
     RAYTRACER_SANDBOX_HEADER
     include/raytracer-sandbox/*.hpp
+    include/raytracer-sandbox/*.inl
     )
 
 file(
@@ -169,6 +173,14 @@ add_executable(pathtracingTest test/pathtracingTest.cpp)
 target_link_libraries(pathtracingTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
 add_test(RaytracerSandbox-PathtracingTest pathtracingTest CONFIGURATIONS Debug)
 
+add_executable(extentTest test/extentTest.cpp)
+target_link_libraries(extentTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
+add_test(RaytracerSandbox-ExtentTest extentTest CONFIGURATIONS Debug)
+
+add_executable(octreeTest test/octreeTest.cpp)
+target_link_libraries(octreeTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
+add_test(RaytracerSandbox-OctreeTest octreeTest CONFIGURATIONS Debug)
+
 #Test command with details
 add_custom_target(detailed_test 
     COMMAND ./defaultTest
@@ -186,6 +198,8 @@ add_custom_target(detailed_test
     COMMAND ./spotLightTest
     COMMAND ./directionalLightTest
     COMMAND ./renderTest
+    COMMAND ./octreeTest
+    COMMAND ./extentTest
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "Launch Detailed Test" VERBATIM
 )

@@ -29,12 +29,12 @@ TEST(Box, GetterSetter)
     EXPECT_EQ(bounds[1][1], 1);
     EXPECT_EQ(bounds[1][2], 1);
 
-    glm::vec3 minExtent = constBox.minExtent();
+    glm::vec3 minExtent = constBox.minBound();
     EXPECT_EQ(minExtent[0], 0);
     EXPECT_EQ(minExtent[1], 0);
     EXPECT_EQ(minExtent[2], 0);
 
-    glm::vec3 maxExtent = constBox.maxExtent();
+    glm::vec3 maxExtent = constBox.maxBound();
     EXPECT_EQ(maxExtent[0], 1);
     EXPECT_EQ(maxExtent[1], 1);
     EXPECT_EQ(maxExtent[2], 1);
@@ -49,15 +49,15 @@ TEST(Box, GetterSetter)
     EXPECT_EQ(box.bounds()[1][1], 1);
     EXPECT_EQ(box.bounds()[1][2], 1);
 
-    box.minExtent() = glm::vec3(1,1,1);
-    EXPECT_EQ(box.minExtent()[0], 1);
-    EXPECT_EQ(box.minExtent()[1], 1);
-    EXPECT_EQ(box.minExtent()[2], 1);
+    box.minBound() = glm::vec3(1,1,1);
+    EXPECT_EQ(box.minBound()[0], 1);
+    EXPECT_EQ(box.minBound()[1], 1);
+    EXPECT_EQ(box.minBound()[2], 1);
 
-    box.maxExtent() = glm::vec3(2,2,2);
-    EXPECT_EQ(box.maxExtent()[0], 2);
-    EXPECT_EQ(box.maxExtent()[1], 2);
-    EXPECT_EQ(box.maxExtent()[2], 2);
+    box.maxBound() = glm::vec3(2,2,2);
+    EXPECT_EQ(box.maxBound()[0], 2);
+    EXPECT_EQ(box.maxBound()[1], 2);
+    EXPECT_EQ(box.maxBound()[2], 2);
 }
 
 TEST(Box, Intersect)
