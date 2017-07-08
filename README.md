@@ -16,7 +16,7 @@ The raytracer-sandbox folder produces a library that implements our sandbox rayt
 This library is tested in the test folder.
 An example application using a GUI is proposed in the app folder.
 
-## How to use it - Compilation, Executation and Cleaning
+## How to use it - Compilation, Execution and Cleaning
 
 ### Compile raytracer-sandbox library
     cd raytracer-sandbox
