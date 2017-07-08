@@ -29,16 +29,16 @@ public:
     Extent() = delete;
     Extent( const ExtentSettingsPtr& settings, std::vector<glm::vec3>& points );
     Extent( const Extent& extent ) = default;
-    Extent( const ExtentSettingsPtr& settings );
     const ExtentSettingsPtr& settings();
     const std::vector< std::array<float,2> >& slabOffsets();
-    const std::array<float,2> & bounds();
-    static std::vector< std::array<float,2> > computeSlabOffsets( const ExtentSettingsPtr& settings, const std::vector<glm::vec3>& points);
-    static std::array< glm::vec3, 2 > computeBounds( const std::vector<glm::vec3>& points );
+    const std::array<glm::vec3,2> & bounds();
 private:
     ExtentSettingsPtr m_settings;
     std::vector< std::array<float,2> > m_slabOffsets; /*!< Pair of in/out distance to origins for each plane-set normal*/
     std::array< glm::vec3, 2 > m_bounds;
+private:
+    void computeSlabOffsets( const std::vector<glm::vec3>& points );
+    void computeBounds( const std::vector<glm::vec3>& points );
 };
 
 #endif // EXTENT_HPP

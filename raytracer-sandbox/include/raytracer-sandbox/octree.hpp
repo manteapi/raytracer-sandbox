@@ -35,8 +35,6 @@ private:
     std::array<OctreeNodePtr, 8> m_children;
     bool m_isLeaf;
     std::vector<ObjectPtr> m_dataObject;
-    //Extent m_dataExtent;
-
 };
 
 typedef std::shared_ptr<OctreeNode> OctreeNodePtr;
@@ -45,13 +43,17 @@ class Octree
 {
 public:
     ~Octree();
-    Octree(const Extent& extent);
+    Octree(const Extent& extent, const int& depth);
     Octree(const Octree& octree) = default;
-    void insert(const ObjectPtr& o, OctreeNodePtr& node, std::array<glm::vec3,2> nodeBB, int depth);
+    void insert(const ObjectPtr& o);
+    const int& depth();
+    const Extent& extent();
+    const OctreeNodePtr& root();
 private:
     OctreeNodePtr m_root;
     Extent m_extent;
     int m_depth;
+    void insert(const ObjectPtr& o, OctreeNodePtr& node, std::array<glm::vec3,2> nodeBB, int depth);
 };
 
 #endif // OCTREE_HPP

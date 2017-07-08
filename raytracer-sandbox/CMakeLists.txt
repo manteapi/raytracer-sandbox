@@ -173,6 +173,14 @@ add_executable(pathtracingTest test/pathtracingTest.cpp)
 target_link_libraries(pathtracingTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
 add_test(RaytracerSandbox-PathtracingTest pathtracingTest CONFIGURATIONS Debug)
 
+add_executable(extentTest test/extentTest.cpp)
+target_link_libraries(extentTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
+add_test(RaytracerSandbox-ExtentTest extentTest CONFIGURATIONS Debug)
+
+add_executable(octreeTest test/octreeTest.cpp)
+target_link_libraries(octreeTest ${GTEST_LIBS} ${RAYTRACER_SANDBOX_LIBRARIES})
+add_test(RaytracerSandbox-OctreeTest octreeTest CONFIGURATIONS Debug)
+
 #Test command with details
 add_custom_target(detailed_test 
     COMMAND ./defaultTest
@@ -190,6 +198,8 @@ add_custom_target(detailed_test
     COMMAND ./spotLightTest
     COMMAND ./directionalLightTest
     COMMAND ./renderTest
+    COMMAND ./octreeTest
+    COMMAND ./extentTest
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "Launch Detailed Test" VERBATIM
 )
