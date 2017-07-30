@@ -7,12 +7,7 @@
 #include <QOpenGLFramebufferObject>
 #include <QOpenGLBuffer>
 
-#include "shapetofbo.hpp"
-
-class Toto
-{
-
-};
+#include "gpuhelper.hpp"
 
 class FBORenderer : public QObject, protected QOpenGLFunctions
 {
@@ -27,10 +22,17 @@ public Q_SLOTS:
     void setBackgroundImage(const QImage& image);
     QImage getBackgroundImage() const;
 private:
-    BackgroundFBOPtr m_backgroundFbo;
-    ShapeToMainFBOPtr m_shapeToMainFbo;
     QSize m_viewportSize;
     QQuickWindow *m_window;
+    bool m_initialisation;
+
+    bool m_backgroundIsDirty;
+    QImage m_tempBackground;
+
+    ShaderProgramPtr texturedMeshShader = nullptr;
+    FrameBufferObjectPtr backgroundFBO = nullptr;
+    TextureObjectPtr backgroundTexture = nullptr;
+    MeshBufferObjectPtr unitSquareMesh = nullptr;
 };
 
 #endif // FBORENDERER_HPP

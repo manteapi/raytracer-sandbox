@@ -12,12 +12,36 @@ OctreeNode<TData>::OctreeNode()
     m_dataObject.clear();
     m_children.fill(nullptr);
     m_isLeaf = true;
+    m_extent = Extent();
+    m_center = glm::vec3(0,0,0);
 }
 
 template<typename TData>
-std::vector<TData>& OctreeNode<TData>::dataObject()
+OctreeNode<TData>::OctreeNode(const Extent& extent)
+{
+    m_extent = extent;
+    m_children.fill(nullptr);
+    m_isLeaf = true;
+    std::array<glm::vec3,2> bounds = m_extent.bounds();
+    m_center = 0.5f*(bounds[0] + bounds[1]);
+}
+
+template<typename TData>
+const std::vector< std::pair<TData,glm::vec3> >  &OctreeNode<TData>::dataObject() const
 {
     return m_dataObject;
+}
+
+template<typename TData>
+std::vector< std::pair<TData,glm::vec3> >  &OctreeNode<TData>::dataObject()
+{
+    return m_dataObject;
+}
+
+template<typename TData>
+const std::array< std::shared_ptr< OctreeNode<TData> >,8>& OctreeNode<TData>::children() const
+{
+    return m_children;
 }
 
 template<typename TData>
@@ -36,6 +60,30 @@ template<typename TData>
 const bool& OctreeNode<TData>::isLeaf() const
 {
     return m_isLeaf;
+}
+
+template<typename TData>
+const glm::vec3& OctreeNode<TData>::center() const
+{
+    return m_center;
+}
+
+template<typename TData>
+glm::vec3& OctreeNode<TData>::center()
+{
+    return m_center;
+}
+
+template<typename TData>
+const Extent& OctreeNode<TData>::extent() const
+{
+    return m_extent;
+}
+
+template<typename TData>
+Extent& OctreeNode<TData>::extent()
+{
+    return m_extent;
 }
 
 template<typename TData>
@@ -132,7 +180,7 @@ void Octree<TData>::insert(const std::pair<TData, glm::vec3>& o, OctreeNodePtr& 
         if(child == nullptr)
         {
             //If the cell was not yet instanciated (optimization purpose) then create the cell
-            child = std::make_shared<OctreeNode<TData> >();
+            child = std::make_shared<OctreeNode<TData> >( Extent(childBB) );
         }
         insert(o, child, childBB, depth+1);
     }

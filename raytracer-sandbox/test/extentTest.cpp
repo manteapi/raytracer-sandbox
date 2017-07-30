@@ -92,7 +92,7 @@ TEST(Extent, Specific_Constructor)
     Extent extent(settings, points);
     //Slabs
     const std::vector< std::array<float,2> > slabs = extent.slabOffsets();
-    EXPECT_EQ(slabs.size(), 3);
+    EXPECT_EQ(slabs.size(), (unsigned int)3);
     for(size_t i=0; i<slabs.size(); ++i)
     {
         EXPECT_EQ(slabs[i][0], 40);

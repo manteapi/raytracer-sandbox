@@ -19,6 +19,14 @@ ExtentSettingsPtr ExtentSettings::AABB_Settings()
     return settings;
 }
 
+Extent::Extent( std::array<glm::vec3,2>& bounds )
+{
+    std::vector<glm::vec3> points = {{ bounds[0], bounds[1] }};
+    m_settings = ExtentSettings::AABB_Settings();
+    computeSlabOffsets(points);
+    computeBounds(points);
+}
+
 Extent::Extent( const ExtentSettingsPtr& settings, vector<glm::vec3>& points) : m_settings(settings)
 {
     computeSlabOffsets(points);

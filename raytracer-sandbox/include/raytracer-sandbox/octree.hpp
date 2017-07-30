@@ -27,15 +27,24 @@ public:
     typedef std::shared_ptr< OctreeNode<TData> > OctreeNodePtr;
     ~OctreeNode();
     OctreeNode();
+    OctreeNode(const Extent& extent);
     OctreeNode( const OctreeNode& node ) = default;
     const bool& isLeaf() const;
     bool& isLeaf();
-    std::vector<TData>& dataObject();
+    const glm::vec3& center() const;
+    glm::vec3& center();
+    const Extent& extent() const;
+    Extent& extent();
+    const std::vector< std::pair<TData,glm::vec3> > & dataObject() const;
+    std::vector< std::pair<TData,glm::vec3> > & dataObject();
+    const std::array<OctreeNodePtr,8>& children() const;
     std::array<OctreeNodePtr,8>& children();
 private:
-    std::array<OctreeNodePtr, 8> m_children;
     bool m_isLeaf;
-    std::vector<TData> m_dataObject;
+    glm::vec3 m_center;
+    Extent m_extent;
+    std::array<OctreeNodePtr, 8> m_children;
+    std::vector< std::pair<TData,glm::vec3> > m_dataObject;
 };
 
 
@@ -57,6 +66,13 @@ private:
     OctreeNodePtr m_root;
     Extent m_extent;
     int m_maxDepth;
+    /**
+     * @brief Insert an object into the octree.
+     * @param o The object to insert representing as a pair containing the data of the object and its position.
+     * @param node The octree's node where the object tries to be inserted.
+     * @param nodeBB The bounding box of the octree's node.
+     * @param depth The depth of the octree's node.
+     */
     void insert(const std::pair<TData, glm::vec3>& o, OctreeNodePtr& node, std::array<glm::vec3,2> nodeBB, int depth);
     void computeDepth(const OctreeNodePtr& node, int& depth);
 };

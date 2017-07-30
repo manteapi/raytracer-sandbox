@@ -27,6 +27,7 @@ class Extent
 public:
     ~Extent() = default;
     Extent() = delete;
+    Extent( std::array<glm::vec3,2>& bounds );
     Extent( const ExtentSettingsPtr& settings, std::vector<glm::vec3>& points );
     Extent( const Extent& extent ) = default;
     const ExtentSettingsPtr& settings();
