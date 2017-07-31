@@ -7,18 +7,9 @@ template<typename TData>
 OctreeNode<TData>::~OctreeNode(){}
 
 template<typename TData>
-OctreeNode<TData>::OctreeNode()
-{
-    m_dataObject.clear();
-    m_children.fill(nullptr);
-    m_isLeaf = true;
-    m_extent = Extent();
-    m_center = glm::vec3(0,0,0);
-}
-
-template<typename TData>
 OctreeNode<TData>::OctreeNode(const Extent& extent)
 {
+    m_dataObject.clear();
     m_extent = extent;
     m_children.fill(nullptr);
     m_isLeaf = true;

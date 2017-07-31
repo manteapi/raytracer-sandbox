@@ -26,7 +26,7 @@ class OctreeNode
 public:
     typedef std::shared_ptr< OctreeNode<TData> > OctreeNodePtr;
     ~OctreeNode();
-    OctreeNode();
+    OctreeNode() = delete;
     OctreeNode(const Extent& extent);
     OctreeNode( const OctreeNode& node ) = default;
     const bool& isLeaf() const;
