@@ -6,6 +6,8 @@
 
 #include <iostream>
 
+#include <raytracer-sandbox/io.hpp>
+
 using namespace  std;
 
 ShaderProgram::ShaderProgram(const QString& vertexShaderPath, const QString& fragmentShaderPath)
@@ -100,13 +102,50 @@ void FrameBufferObject::release()
     glFuncs.glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-MeshBufferObject::MeshBufferObject() : m_pBuffer(0), m_cBuffer(0), m_tBuffer(0), m_size(-1)
+MeshBufferObject::MeshBufferObject() : m_pBuffer(0), m_cBuffer(0), m_tBuffer(0), m_iBuffer(0), m_size(-1), m_indexedMesh(false)
 {
     QOpenGLFunctions glFuncs(QOpenGLContext::currentContext());
     glFuncs.glGenBuffers(1, &m_pBuffer);
     glFuncs.glGenBuffers(1, &m_cBuffer);
     glFuncs.glGenBuffers(1, &m_tBuffer);
+    glFuncs.glGenBuffers(1, &m_iBuffer);
 }
+
+MeshBufferObject::MeshBufferObject( const std::string& objPath) : m_pBuffer(0), m_cBuffer(0), m_tBuffer(0), m_iBuffer(0), m_size(-1), m_indexedMesh(false)
+{
+    QOpenGLFunctions glFuncs(QOpenGLContext::currentContext());
+    glFuncs.glGenBuffers(1, &m_pBuffer);
+    glFuncs.glGenBuffers(1, &m_cBuffer);
+    glFuncs.glGenBuffers(1, &m_tBuffer);
+    glFuncs.glGenBuffers(1, &m_iBuffer);
+
+    std::vector<glm::vec3> positions;
+    std::vector<glm::vec3> normals;
+    std::vector<glm::vec2> texCoords;
+    std::vector<glm::vec4> colors;
+    std::vector<unsigned int> indices;
+
+    bool success = read_obj(objPath, positions, indices, normals, texCoords);
+    if(!success)
+    {
+        qInfo() << " [MeshBufferObject] Failed to load " << objPath.c_str();
+    }
+    else
+    {
+        colors.resize(positions.size(), glm::vec4(1.0,1.0,1.0,1.0));
+        loadPositions(positions);
+        loadColors(colors);
+        loadTexCoords(texCoords);
+        loadIndices(indices);
+        qInfo() << "[MeshBufferObject] Succeeded to load " << objPath.c_str();
+        qInfo() << "[MeshBufferObject] #Vertices " << positions.size();
+        qInfo() << "[MeshBufferObject] #Indices " << indices.size();
+        qInfo() << "[MeshBufferObject] #Normals " << normals.size();
+        qInfo() << "[MeshBufferObject] #TexCoords " << texCoords.size();
+        qInfo() << "[MeshBufferObject] #Colors " << colors.size();
+    }
+}
+
 
 MeshBufferObject::~MeshBufferObject()
 {
@@ -114,14 +153,18 @@ MeshBufferObject::~MeshBufferObject()
     glFuncs.glDeleteBuffers(1, &m_pBuffer);
     glFuncs.glDeleteBuffers(1, &m_cBuffer);
     glFuncs.glDeleteBuffers(1, &m_tBuffer);
+    glFuncs.glDeleteBuffers(1, &m_iBuffer);
 }
 
-void MeshBufferObject::loadPositions(std::vector<glm::vec2>& data)
+void MeshBufferObject::loadPositions(std::vector<glm::vec3>& data)
 {
     QOpenGLFunctions glFuncs(QOpenGLContext::currentContext());
     glFuncs.glBindBuffer(GL_ARRAY_BUFFER, m_pBuffer);
-    glFuncs.glBufferData(GL_ARRAY_BUFFER, data.size()*sizeof(glm::vec2), data.data(), GL_STATIC_DRAW);
-    m_size = data.size();
+    glFuncs.glBufferData(GL_ARRAY_BUFFER, data.size()*sizeof(glm::vec3), data.data(), GL_STATIC_DRAW);
+    if(!m_indexedMesh)
+    {
+        m_size = data.size();
+    }
 }
 
 void MeshBufferObject::loadColors(std::vector<glm::vec4>& data)
@@ -129,7 +172,10 @@ void MeshBufferObject::loadColors(std::vector<glm::vec4>& data)
     QOpenGLFunctions glFuncs(QOpenGLContext::currentContext());
     glFuncs.glBindBuffer(GL_ARRAY_BUFFER, m_cBuffer);
     glFuncs.glBufferData(GL_ARRAY_BUFFER, data.size()*sizeof(glm::vec4), data.data(), GL_STATIC_DRAW);
-    m_size = data.size();
+    if(!m_indexedMesh)
+    {
+        m_size = data.size();
+    }
 }
 
 void MeshBufferObject::loadTexCoords(std::vector<glm::vec2>& data)
@@ -137,6 +183,18 @@ void MeshBufferObject::loadTexCoords(std::vector<glm::vec2>& data)
     QOpenGLFunctions glFuncs(QOpenGLContext::currentContext());
     glFuncs.glBindBuffer(GL_ARRAY_BUFFER, m_tBuffer);
     glFuncs.glBufferData(GL_ARRAY_BUFFER, data.size()*sizeof(glm::vec2), data.data(), GL_STATIC_DRAW);
+    if(!m_indexedMesh)
+    {
+        m_size = data.size();
+    }
+}
+
+void MeshBufferObject::loadIndices(std::vector<unsigned int> &data)
+{
+    QOpenGLFunctions glFuncs(QOpenGLContext::currentContext());
+    glFuncs.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_iBuffer);
+    glFuncs.glBufferData(GL_ELEMENT_ARRAY_BUFFER, data.size()*sizeof(unsigned int), data.data(), GL_STATIC_DRAW);
+    m_indexedMesh = true;
     m_size = data.size();
 }
 
@@ -145,13 +203,21 @@ void MeshBufferObject::draw(GLint pLocation, GLint cLocation)
     QOpenGLFunctions glFuncs(QOpenGLContext::currentContext());
     glFuncs.glEnableVertexAttribArray(pLocation);
     glFuncs.glBindBuffer(GL_ARRAY_BUFFER, m_pBuffer);
-    glFuncs.glVertexAttribPointer(pLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    glFuncs.glVertexAttribPointer(pLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
     glFuncs.glEnableVertexAttribArray(cLocation);
     glFuncs.glBindBuffer(GL_ARRAY_BUFFER, m_cBuffer);
     glFuncs.glVertexAttribPointer(cLocation, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
-    glFuncs.glDrawArrays(GL_TRIANGLES,0, m_size);
+    if(m_indexedMesh)
+    {
+        glFuncs.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_iBuffer);
+        glFuncs.glDrawElements(GL_TRIANGLES, m_size, GL_UNSIGNED_INT, (void*)0);
+    }
+    else
+    {
+        glFuncs.glDrawArrays(GL_TRIANGLES,0, m_size);
+    }
 
     glFuncs.glDisableVertexAttribArray(pLocation);
     glFuncs.glDisableVertexAttribArray(cLocation);
@@ -162,7 +228,7 @@ void MeshBufferObject::draw(GLint pLocation, GLint cLocation, GLuint texId, GLin
     QOpenGLFunctions glFuncs(QOpenGLContext::currentContext());
     glFuncs.glEnableVertexAttribArray(pLocation);
     glFuncs.glBindBuffer(GL_ARRAY_BUFFER, m_pBuffer);
-    glFuncs.glVertexAttribPointer(pLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    glFuncs.glVertexAttribPointer(pLocation, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
     glFuncs.glEnableVertexAttribArray(cLocation);
     glFuncs.glBindBuffer(GL_ARRAY_BUFFER, m_cBuffer);
@@ -175,7 +241,15 @@ void MeshBufferObject::draw(GLint pLocation, GLint cLocation, GLuint texId, GLin
     glFuncs.glBindBuffer(GL_ARRAY_BUFFER, m_tBuffer);
     glFuncs.glVertexAttribPointer(tLocation, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
-    glFuncs.glDrawArrays(GL_TRIANGLES,0, m_size);
+    if(m_indexedMesh)
+    {
+        glFuncs.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_iBuffer);
+        glFuncs.glDrawElements(GL_TRIANGLES, m_size, GL_UNSIGNED_INT, (void*)0);
+    }
+    else
+    {
+        glFuncs.glDrawArrays(GL_TRIANGLES,0, m_size);
+    }
 
     glFuncs.glBindTexture(GL_TEXTURE_2D, 0);
     glFuncs.glDisableVertexAttribArray(pLocation);
@@ -183,15 +257,45 @@ void MeshBufferObject::draw(GLint pLocation, GLint cLocation, GLuint texId, GLin
     glFuncs.glDisableVertexAttribArray(tLocation);
 }
 
-void unitSquare(std::vector<glm::vec2>& positions, std::vector<glm::vec4>& colors, std::vector<glm::vec2>& texCoords)
+void unitSquare(std::vector<glm::vec3>& positions, std::vector<glm::vec4>& colors, std::vector<glm::vec2>& texCoords, std::vector<unsigned int> &indices)
 {
     positions.clear();
     colors.clear();
     texCoords.clear();
-    std::vector< glm::vec2 > samplePositions =
+    std::vector< glm::vec3 > samplePositions =
     {
-        glm::vec2(-1.0,-1.0), glm::vec2(1.0,-1.0), glm::vec2(1.0,1.0),
-        glm::vec2(-1.0,-1.0), glm::vec2(1.0,1.0), glm::vec2(-1.0,1.0)
+        glm::vec3(-1.0,-1.0,0.0), glm::vec3(1.0,-1.0,0.0), glm::vec3(1.0,1.0,0.0), glm::vec3(-1.0,1.0,0.0)
+    };
+    positions = samplePositions;
+
+    std::vector< glm::vec2 > sampleTexCoords =
+    {
+        glm::vec2(0.0,0.0), glm::vec2(1.0,0.0), glm::vec2(1.0,1.0), glm::vec2(0.0,1.0)
+    };
+    texCoords = sampleTexCoords;
+
+    std::vector< glm::vec4 > sampleColors =
+    {
+        glm::vec4(1.0,1.0,1.0,1.0), glm::vec4(1.0,1.0,1.0,1.0), glm::vec4(1.0,1.0,1.0,1.0), glm::vec4(1.0,1.0,1.0,1.0)
+    };
+    colors = sampleColors;
+
+    std::vector< unsigned int > sampleIndices =
+    {
+        0, 1, 2, 0, 2, 3
+    };
+    indices = sampleIndices;
+}
+
+void unitSquare(std::vector<glm::vec3>& positions, std::vector<glm::vec4>& colors, std::vector<glm::vec2>& texCoords)
+{
+    positions.clear();
+    colors.clear();
+    texCoords.clear();
+    std::vector< glm::vec3 > samplePositions =
+    {
+        glm::vec3(-1.0,-1.0,0.0), glm::vec3(1.0,-1.0,0.0), glm::vec3(1.0,1.0,0.0),
+        glm::vec3(-1.0,-1.0,0.0), glm::vec3(1.0,1.0,0.0), glm::vec3(-1.0,1.0,0.0)
     };
     positions = samplePositions;
 

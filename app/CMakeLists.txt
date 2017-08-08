@@ -12,7 +12,7 @@ project(raytracer-app)
 #Building options
 #==========================================
 set(CMAKE_AUTOMOC ON)
-set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra -Wall")
 
@@ -91,6 +91,12 @@ file(
     )
 
 qt5_add_resources(RESOURCE_FILES ${QRC_FILES})
+
+#==============================================
+#Project config file
+#==============================================
+configure_file(config.h.in ${CMAKE_BINARY_DIR}/generated/config.h)
+include_directories( ${CMAKE_BINARY_DIR}/generated/)
 
 #==============================================
 #Project executable

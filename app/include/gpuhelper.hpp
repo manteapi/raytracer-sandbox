@@ -11,7 +11,8 @@
 #include <glm/glm.hpp>
 
 
-void unitSquare(std::vector<glm::vec2>& positions, std::vector<glm::vec4>& colors, std::vector<glm::vec2>& texCoords);
+void unitSquare(std::vector<glm::vec3>& positions, std::vector<glm::vec4>& colors, std::vector<glm::vec2>& texCoords);
+void unitSquare(std::vector<glm::vec3>& positions, std::vector<glm::vec4>& colors, std::vector<glm::vec2>& texCoords, std::vector<unsigned int> &indices);
 
 class ShaderProgram
 {
@@ -62,16 +63,20 @@ class MeshBufferObject
 {
 public:
     MeshBufferObject();
+    MeshBufferObject(const std::string& objPath);
     ~MeshBufferObject();
-    void loadPositions(std::vector<glm::vec2>& data);
+    void loadPositions(std::vector<glm::vec3>& data);
     void loadColors(std::vector<glm::vec4>& data);
     void loadTexCoords(std::vector<glm::vec2>& data);
+    void loadIndices(std::vector<unsigned int>& data);
     void draw(GLint pLocation, GLint cLocation);
     void draw(GLint pLocation, GLint cLocation, GLuint texId, GLint tSamplerLocation, GLint tLocation);
     GLuint m_pBuffer;
     GLuint m_cBuffer;
     GLuint m_tBuffer;
+    GLuint m_iBuffer;
     size_t m_size;
+    bool m_indexedMesh;
 };
 
 typedef std::shared_ptr<MeshBufferObject> MeshBufferObjectPtr;

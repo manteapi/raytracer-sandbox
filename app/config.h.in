@@ -1,0 +1,16 @@
+#ifndef CONFIG_HPP
+#define CONFIG_HPP
+
+#include <string>
+
+std::string CurrentBinaryDir()
+{
+    return "@CMAKE_CURRENT_BINARY_DIR@";
+}
+
+std::string CurrentSourceDir()
+{
+    return "@CMAKE_CURRENT_SOURCE_DIR@";
+}
+
+#endif // CONFIG_HPP

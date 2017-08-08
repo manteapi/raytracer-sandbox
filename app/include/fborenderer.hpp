@@ -30,9 +30,12 @@ private:
     QImage m_tempBackground;
 
     ShaderProgramPtr texturedMeshShader = nullptr;
-    FrameBufferObjectPtr backgroundFBO = nullptr;
+    FrameBufferObjectPtr secondaryFBO = nullptr;
     TextureObjectPtr backgroundTexture = nullptr;
     MeshBufferObjectPtr unitSquareMesh = nullptr;
+
+    MeshBufferObjectPtr objMesh = nullptr;
+    TextureObjectPtr objTexture = nullptr;
 };
 
 #endif // FBORENDERER_HPP
